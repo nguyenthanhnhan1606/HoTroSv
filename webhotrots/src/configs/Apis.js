@@ -23,6 +23,9 @@ export const endpoints = {
   NewsTT:`/api/newstt`,
   NewsTX:`/api/newstx`,
   PageSDH:`/api/newspagesdh`,
+  PageDH:`/api/newspagedh`,
+  PageTT:`/api/newspagett`,
+  PageTX:`/api/newspagetx`,
   UpdateNews:`/api/news/update`,
   RecycleBinNews:`/api/news/recyclebin`,
   DuyetNews:`/api/news/check`,
@@ -31,6 +34,7 @@ export const endpoints = {
   Login:`api/login`,
   Current_user:`api/current-user`,
   Register:`api/register`,
+  
 };
 
 export default axios.create({

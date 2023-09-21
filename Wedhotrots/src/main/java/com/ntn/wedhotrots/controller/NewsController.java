@@ -29,19 +29,28 @@ public class NewsController {
         return newsSer.getNewsCXD();
     }
 
+    @GetMapping("/news/{id}")
+    @CrossOrigin
+    public Optional<News> getNewsById(@PathVariable int id){
+        return newsSer.getNewsById(id);
+    }
+
+
+    //ĐẠI HỌC
     @GetMapping("/newsdh")
     @CrossOrigin
-    public List<News> getNewsDH(){
-        return newsSer.getNewsDH();
+    public List<News> getNewsDH(@RequestParam Map<String, String>parmas){
+        return newsSer.getNewsDH(parmas);
     }
 
     @GetMapping("/newspagedh")
     @CrossOrigin
     public double getPageDH(){
-        double count = newsSer.getNewsDH().size();
+        double count = newsSer.getNewsDH(null).size();
         return Math.ceil(count/2);
     }
 
+    //SAU ĐẠI HỌC
     @GetMapping("/newssdh")
     @CrossOrigin
     public List<News> getNewsSDH(@RequestParam Map<String, String> parmas){
@@ -55,37 +64,37 @@ public class NewsController {
         return Math.ceil(count/2);
     }
 
+    //TRỰC TUYẾN
     @GetMapping("/newstt")
     @CrossOrigin
-    public List<News> getNewTT(){
-        return newsSer.getNewsTT();
+    public List<News> getNewTT(@RequestParam Map<String, String> params){
+        return newsSer.getNewsTT(params);
     }
 
     @GetMapping("/newspagett")
     @CrossOrigin
     public double getPageTT(){
-        double count = newsSer.getNewsTT().size();
+        double count = newsSer.getNewsTT(null).size();
         return Math.ceil(count/2);
     }
 
+    //TỪ XA
     @GetMapping("/newstx")
     @CrossOrigin
-    public List<News> getNewsTX(){
-        return newsSer.getNewsTX();
+    public List<News> getNewsTX(@RequestParam Map<String, String> params){
+        return newsSer.getNewsTX(params);
     }
 
     @GetMapping("/newspagetx")
     @CrossOrigin
     public double getPageTX(){
-        double count = newsSer.getNewsTX().size();
+        double count = newsSer.getNewsTX(null).size();
         return Math.ceil(count/2);
     }
 
-    @GetMapping("/news/{id}")
-    @CrossOrigin
-    public Optional<News> getNewsById(@PathVariable int id){
-        return newsSer.getNewsById(id);
-    }
+
+
+
 
     @PostMapping("/news")
     @CrossOrigin

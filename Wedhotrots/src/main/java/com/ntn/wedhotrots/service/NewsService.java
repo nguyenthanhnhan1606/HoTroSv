@@ -12,10 +12,10 @@ public interface NewsService {
 
     List<News> getNewsCXD();
 
-    List<News> getNewsDH();
+    List<News> getNewsDH(Map<String,String> params);
     List<News> getNewsSDH(Map<String,String> params);
-    List<News> getNewsTT();
-    List<News> getNewsTX();
+    List<News> getNewsTT(Map<String,String> params);
+    List<News> getNewsTX(Map<String,String> params);
     Optional<News> getNewsById(int id);
 
     boolean updateNews(int id, Map<String, String> params, MultipartFile file);

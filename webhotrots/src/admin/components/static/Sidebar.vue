@@ -28,6 +28,13 @@
             Quản lý khoa
           </router-link>
 
+          <router-link :to="{ name: 'live' }" class="nav-link">
+            <div class="sb-nav-link-icon">
+              <i class="fa-solid fa-sliders"></i>
+            </div>
+            Quản lý lịch Livestream
+          </router-link>
+
           <!-- Shipper Section -->
           <a
             class="nav-link collapsed"

@@ -132,7 +132,11 @@
               </div>
 
               <div v-for="(newsdh, index) in newsdhs" :key="newsdh.id">
-                <a href="" class="nav-link text-dark" v-if="index < 5">
+                <router-link
+                  :to="{ name: 'newsDetailCl', params: { id: newsdh.id } }"
+                  class="nav-link text-dark"
+                  v-if="index < 5"
+                >
                   <div class="row mb-4 border-bottom pb-2">
                     <div class="col-3">
                       <img
@@ -149,14 +153,10 @@
                       <p>
                         <span>Ngày cập nhật: </span> {{ newsdh.ngaycapnhat }}
                       </p>
-
-                      /2`11*/
                     </div>
                   </div>
-                </a>
+                </router-link>
               </div>
-
-              <hr />
             </div>
             <!-- News block -->
           </div>
@@ -237,17 +237,13 @@
                 class="bg-image hover-overlay shadow-1-strong rounded-5 ripple mb-4"
                 data-mdb-ripple-color="light"
               >
-                <img
-                  src="@/assets/tsdttt.png"
-                  class="img-fluid"
-                  alt="Golden Gate National Recreation Area"
-                />
-                <a href="#!">
-                  <div
-                    class="mask"
-                    style="background-color: rgba(251, 251, 251, 0.15)"
-                  ></div>
-                </a>
+              <router-link :to="{ name: 'newstt' }">
+                  <img
+                    src="@/assets/tsdttt.png"
+                    class="img-fluid"
+                    alt="Brooklyn Bridge"
+                  />
+                </router-link>
               </div>
 
               <!-- Article data -->
@@ -309,17 +305,13 @@
                 class="bg-image hover-overlay shadow-1-strong rounded-5 ripple mb-4"
                 data-mdb-ripple-color="light"
               >
-                <img
-                  src="@/assets/tsdttx.png"
-                  class="img-fluid"
-                  alt="Golden Gate National Recreation Area"
-                />
-                <a href="#!">
-                  <div
-                    class="mask"
-                    style="background-color: rgba(251, 251, 251, 0.15)"
-                  ></div>
-                </a>
+              <router-link :to="{ name: 'newstx' }">
+                  <img
+                    src="@/assets/tsdttx.png"
+                    class="img-fluid"
+                    alt="Brooklyn Bridge"
+                  />
+                </router-link>
               </div>
 
               <!-- Article data -->
@@ -335,16 +327,19 @@
               </div>
 
               <!-- Article title and description -->
-              <a href="" class="nav-link text-center text-dark">
+              <a href="" class="text-center nav-link text-dark">
                 <h6>Tuyển sinh đào tạo từ xa</h6>
               </a>
-
               <div class="mb-2 mt-3">
                 <strong class="text-bg-success">Các tin tức mới nhất</strong>
               </div>
 
               <div v-for="(newstx, index) in newstxs" :key="newstx.id">
-                <a href="" class="nav-link text-dark" v-if="index < 5">
+                <router-link
+                  :to="{ name: 'newsDetailCl', params: { id: newstx.id } }"
+                  class="nav-link text-dark"
+                  v-if="index < 5"
+                >
                   <div class="row mb-4 border-bottom pb-2">
                     <div class="col-3">
                       <img
@@ -363,7 +358,7 @@
                       </p>
                     </div>
                   </div>
-                </a>
+                </router-link>
               </div>
 
               <hr />

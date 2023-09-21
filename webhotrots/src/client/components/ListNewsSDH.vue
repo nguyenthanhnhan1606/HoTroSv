@@ -139,13 +139,12 @@ export default {
   mounted() {
     this.searchQuery = this.$route.query.search || "";
     console.log(this.searchQuery);
-    this.fetchDataSDH(1);
     this.fetchPageSDH();
+    this.fetchDataSDH(1);
   },
   methods: {
     async fetchDataSDH(page) {
       if (page < 1) page = 1;
-      if (page > this.itemsPerPage) page = 3;
       try {
         let location = endpoints["NewsSDH"];
         if (this.searchQuery !== "") {

@@ -37,8 +37,23 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List<News> getNewsDH() {
-        return newsRepo.findNewsDH();
+    public List<News> getNewsDH(Map<String,String> params) {
+        Pageable pageable = Pageable.unpaged();
+        String search="";
+
+        if (params != null) {
+            String pageStr = params.get("page");
+            if (pageStr != null && !pageStr.isEmpty()) {
+                int page = Integer.parseInt(pageStr);
+                page -=1;
+                pageable = PageRequest.of(page, 2, Sort.by("id").descending());
+            }
+            search = params.get("search");
+        }
+        if (search != null && !search.isEmpty()) {
+            return newsRepo.findNewsDH(pageable, search);
+        }
+        return newsRepo.findNewsDH(pageable, "");
     }
 
     @Override
@@ -62,13 +77,43 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List<News> getNewsTT() {
-        return newsRepo.findNewsTT();
+    public List<News> getNewsTT(Map<String,String> params) {
+        Pageable pageable = Pageable.unpaged(); // Default to unpaged
+        String search="";
+
+        if (params != null) {
+            String pageStr = params.get("page");
+            if (pageStr != null && !pageStr.isEmpty()) {
+                int page = Integer.parseInt(pageStr);
+                page -=1;
+                pageable = PageRequest.of(page, 2, Sort.by("id").descending());
+            }
+            search = params.get("search");
+        }
+        if (search != null && !search.isEmpty()) {
+            return newsRepo.findNewsTT(pageable, search);
+        }
+        return newsRepo.findNewsTT(pageable, "");
     }
 
     @Override
-    public List<News> getNewsTX() {
-        return newsRepo.findNewsTX();
+    public List<News> getNewsTX(Map<String,String> params) {
+        Pageable pageable = Pageable.unpaged(); // Default to unpaged
+        String search="";
+
+        if (params != null) {
+            String pageStr = params.get("page");
+            if (pageStr != null && !pageStr.isEmpty()) {
+                int page = Integer.parseInt(pageStr);
+                page -=1;
+                pageable = PageRequest.of(page, 2, Sort.by("id").descending());
+            }
+            search = params.get("search");
+        }
+        if (search != null && !search.isEmpty()) {
+            return newsRepo.findNewsTX(pageable, search);
+        }
+        return newsRepo.findNewsTX(pageable, "");
     }
 
     @Override

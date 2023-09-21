@@ -15,7 +15,12 @@ import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
 import ListNewsDH from '../client/components/ListNewsDH.vue'
 import ListNewsSDH from '../client/components/ListNewsSDH.vue'
+import ListNewsTT from '../client/components/ListNewsTT.vue'
+import ListNewsTX from '../client/components/ListNewsTX.vue'
 import NewsDetailClient from '../client/components/NewsDetailClient.vue'
+import DepartmentDetailCl from '../client/components/DepartmentDetailCl.vue'
+import Live from '../admin/components/Live.vue'
+import FaQuestion from '../client/components/FaQuestion.vue'
 
 const routes = [
   {
@@ -44,9 +49,29 @@ const routes = [
         component: ListNewsSDH
       },
       {
+        path: 'newstt',
+        name: "newstt",
+        component: ListNewsTT
+      },
+      {
+        path: 'newstx',
+        name: "newstx",
+        component: ListNewsTX
+      },
+      {
         path: 'news-detail/:id',
         name: "newsDetailCl",
         component: NewsDetailClient
+      },
+      {
+        path: 'department/:id',
+        name: "depDetailCl",
+        component: DepartmentDetailCl
+      },
+      {
+        path: 'fa-question',
+        name:'faquestion', // Đây là trang chính, có thể sử dụng component Home.vue
+        component:FaQuestion
       },
     ]
   },
@@ -74,6 +99,11 @@ const routes = [
         path: 'news',
         name:'news', // Đây là trang chính, có thể sử dụng component Home.vue
         component:News
+      },
+      {
+        path: 'live',
+        name:'live', // Đây là trang chính, có thể sử dụng component Home.vue
+        component:Live
       },
       {
         path: 'newscxd',

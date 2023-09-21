@@ -32,6 +32,32 @@ public class Livestreams implements Serializable {
     @Column(name = "thoigian")
     @Temporal(TemporalType.TIMESTAMP)
     private Date thoigian;
+
+    public byte getActive() {
+        return active;
+    }
+
+    public void setActive(byte active) {
+        this.active = active;
+    }
+
+    @Basic
+    @Column(name = "active")
+    private byte active;
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    @Basic(optional = false)
+    @Column(name = "path")
+    private String path;
+
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLive")
     private Set<Questions> questionsSet;
 

@@ -30,11 +30,15 @@
             >
               Danh sách khoa
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
+              <li v-for="d in departments" :key="d.id"> 
+                <router-link :to="{name:'depDetailCl',params:{id:d.id}}" class="dropdown-item">
+                    {{ d.tenkhoa }}
+                </router-link>
+              </li>
+              <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
               <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li> -->
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -60,10 +64,25 @@
                 </router-link>
               </li>
               <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Đào tạo từ xa</a></li>
+              <li><router-link :to="{name:'newstx'}" class="dropdown-item"
+                  >Đào tạo từ xa
+                </router-link></li>
               <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Đào tạo trực tuyến</a></li>
+              <li><router-link :to="{name:'newstt'}" class="dropdown-item"
+                  >Đào tạo trực tuyến
+                </router-link></li>
             </ul>
+          </li>
+            <li class="nav-item">
+            <a
+              class="nav-link active"
+              href="#"
+              >
+              Lịch Live <i class="fa-regular fa-circle-dot" style="color: #f00f0f;"></i></a
+            >
+          </li>
+          <li class="nav-item">
+            <router-link :to="{name:'faquestion'}" class="nav-link active">Câu hỏi thường gặp</router-link>
           </li>
           <!-- <li class="nav-item">
             <a
@@ -150,13 +169,19 @@
 </template>
   
   <script>
+import Apis, { endpoints } from '@/configs/Apis';
 import { mapGetters } from "vuex";
 export default {
   name: "MyHeader",
   data() {
     return {
       searchQuery: "", // Thêm dữ liệu tìm kiếm
+      departments:null,
+
     };
+  },
+  mounted() {
+    this.fetchDataDep();
   },
   computed: {
     ...mapGetters(["isAuth", "getUser"]),
@@ -167,6 +192,15 @@ export default {
     },
     search() {
       this.$router.replace({ query: { search: this.searchQuery } });
+    },
+    async fetchDataDep() {
+      await Apis.get(endpoints["Department"])
+        .then((response) => {
+          this.departments = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
     },
   },
   watch: {
