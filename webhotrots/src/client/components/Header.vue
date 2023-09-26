@@ -74,15 +74,13 @@
             </ul>
           </li>
             <li class="nav-item">
-            <a
-              class="nav-link active"
-              href="#"
-              >
-              Lịch Live <i class="fa-regular fa-circle-dot" style="color: #f00f0f;"></i></a
-            >
+              <router-link :to="{name:'livecl'}" class="nav-link active"> Lịch Live <i class="fa-regular fa-circle-dot" style="color: #f00f0f;"></i></router-link>
           </li>
           <li class="nav-item">
             <router-link :to="{name:'faquestion'}" class="nav-link active">Câu hỏi thường gặp</router-link>
+          </li>
+          <li class="nav-item" v-if="getUser?getUser.userRole==='ROLE_ADMIN':false">
+            <router-link :to="{name:'Homeadmin'}" class="nav-link active">Trang quản trị</router-link>
           </li>
           <!-- <li class="nav-item">
             <a
@@ -148,7 +146,7 @@
                 Chào, {{ getUser.name }}
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                <router-link to="/login" class="dropdown-item">
+                <router-link :to="{ name:'currentUser'}" class="dropdown-item">
                   <img :src="getUser.avatar" width="40" alt="Avatar" />
                   <span className="text-info">Thông tin user</span></router-link
                 >

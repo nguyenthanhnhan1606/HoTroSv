@@ -76,7 +76,7 @@
   
   
   <script>
-import Apis from "@/configs/Apis.js";
+import Apis, { authApi } from "@/configs/Apis.js";
 import { endpoints } from "@/configs/Apis.js";
 
 export default {
@@ -109,7 +109,7 @@ export default {
     async deleteNews(id) {
       try {
         // Gọi API RecycleBin với id của thông tin
-        const response = await Apis.put(`${endpoints["RecycleBinNews"]}/${id}`);
+        const response = await authApi().put(`${endpoints["RecycleBinNews"]}/${id}`);
         if (response.data === true) {
           alert("Xóa thành công");
           this.fetchData();

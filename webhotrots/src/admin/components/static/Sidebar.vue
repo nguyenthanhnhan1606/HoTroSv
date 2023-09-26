@@ -15,7 +15,7 @@
 
           <router-link :to="{ name: 'banner' }" class="nav-link">
             <div class="sb-nav-link-icon">
-              <i class="fa-solid fa-sliders"></i>
+              <i class="fa-solid fa-sliders" style="color: blue;"></i>
             </div>
             Quản lý Banner
           </router-link>
@@ -23,14 +23,14 @@
           
           <router-link :to="{ name: 'department' }" class="nav-link">
             <div class="sb-nav-link-icon">
-              <i class="fa-solid fa-building"></i>
+              <i class="fa-solid fa-building" style="color: lightblue;"></i>
             </div>
             Quản lý khoa
           </router-link>
 
           <router-link :to="{ name: 'live' }" class="nav-link">
             <div class="sb-nav-link-icon">
-              <i class="fa-solid fa-sliders"></i>
+              <i class="fa-regular fa-circle-dot" style="color: #f00f0f;"></i>
             </div>
             Quản lý lịch Livestream
           </router-link>
@@ -45,7 +45,7 @@
             aria-controls="collapseAccount"
           >
             <div class="sb-nav-link-icon">
-              <i class="fa-solid fa-circle-info"></i>
+              <i class="fa-solid fa-circle-info" style="color: lightblue;"></i>
             </div>
             Thông tin tuyển sinh
             <div class="sb-sidenav-collapse-arrow">
@@ -91,7 +91,7 @@
             data-bs-parent="#sidenavAccordion"
           >
             <nav class="sb-sidenav-menu-nested nav">
-              <router-link :to="{ name: 'department' }" class="nav-link">
+              <router-link :to="{ name: 'listUser' }" class="nav-link">
                 Quản lý tài khoản
               </router-link>
               <a class="nav-link" href="#">Cấp tài khoản</a>
@@ -152,12 +152,19 @@
             </nav>
           </div>
 
-          <!-- Đăng nhập Section -->
-          <a class="nav-link" href="#">
+          <router-link :to="{ name: 'home'}" class="nav-link">
             <div class="sb-nav-link-icon">
-              <i class="fa-solid fa-user"></i>
+              <i class="fa-solid fa-arrow-left" style="color: #2f72e4;"></i>
             </div>
-            Đăng nhập
+            Trang người dùng
+          </router-link>
+
+          <!-- Đăng nhập Section -->
+          <a class="nav-link" href="#" @click="logout()">
+            <div class="sb-nav-link-icon">
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </div>
+            Đăng xuất
           </a>
         </div>
       </div>
@@ -168,5 +175,11 @@
 <script>
 export default {
   name: "SideBar",
+  methods:{
+    async logout() {
+      await this.$store.dispatch("logout");
+      this.$router.push({name:"login"});
+    },
+  }
 };
 </script>

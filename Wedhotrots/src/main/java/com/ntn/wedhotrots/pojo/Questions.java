@@ -1,4 +1,5 @@
 package com.ntn.wedhotrots.pojo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -24,11 +25,13 @@ public class Questions implements Serializable {
     @Basic(optional = false)
     @Column(name = "ngaytao")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+7")
     private Date ngaytao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idQuestion")
     private Set<Answers> answersSet;
     @JoinColumn(name = "id_live", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Livestreams idLive;
     @JoinColumn(name = "id_user", referencedColumnName = "id")
     @ManyToOne(optional = false)

@@ -48,24 +48,25 @@
         <a class="nav-link" href="#">
           <div class="d-flex align-items-center">
             <span class="text-info me-2" style="white-space: nowrap"
-              >Chào,
+              >Chào, {{ getUser ? getUser.name:null }}
             </span>
             <!-- Replace "#" with the actual image URL -->
-            <img src="@/assets/logo.png" width="40" class="rounded-circle" alt="Avatar" />
+            <img :src="getUser ?getUser.avatar:null" width="40" class="rounded-circle" alt="Avatar" />
           </div>
         </a>
       </li>
     </ul>
   </nav>
 </template>
-  
-  
-  
   <script>
+import { mapGetters } from 'vuex';
 
 
 export default {
   name: "HeaderAdmin",
+  computed:{
+    ...mapGetters(["getUser"]),
+  }
 };
 </script>
   

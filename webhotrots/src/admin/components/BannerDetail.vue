@@ -33,7 +33,7 @@
   
 
 <script>
-import Apis from "@/configs/Apis.js";
+import Apis, { authApi } from "@/configs/Apis.js";
 import { endpoints } from "@/configs/Apis.js";
 export default {
   name: "BannerDetail",
@@ -69,7 +69,7 @@ export default {
         formData.append("description", this.banner.description);
         formData.append("file", this.banner.image);
 
-        const res =await Apis.put(`${endpoints['UpdateBanner']}/${this.banner.id}`, formData, {
+        const res =await authApi().put(`${endpoints['UpdateBanner']}/${this.banner.id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           },

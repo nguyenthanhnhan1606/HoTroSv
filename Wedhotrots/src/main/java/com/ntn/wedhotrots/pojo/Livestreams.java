@@ -1,8 +1,8 @@
 package com.ntn.wedhotrots.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 
 import java.io.Serializable;
 import java.util.Date;
@@ -27,9 +27,11 @@ public class Livestreams implements Serializable {
     @Basic(optional = false)
     @Column(name = "ngay")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+7")
     private Date ngay;
     @Basic(optional = false)
     @Column(name = "thoigian")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+7")
     @Temporal(TemporalType.TIMESTAMP)
     private Date thoigian;
 

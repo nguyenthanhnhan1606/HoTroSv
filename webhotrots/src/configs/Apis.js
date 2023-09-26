@@ -26,6 +26,7 @@ export const endpoints = {
   PageDH:`/api/newspagedh`,
   PageTT:`/api/newspagett`,
   PageTX:`/api/newspagetx`,
+  PageLive:`/api/pagelive`,
   UpdateNews:`/api/news/update`,
   RecycleBinNews:`/api/news/recyclebin`,
   DuyetNews:`/api/news/check`,
@@ -34,7 +35,18 @@ export const endpoints = {
   Login:`api/login`,
   Current_user:`api/current-user`,
   Register:`api/register`,
-  
+  Live:`api/live`,
+  RecycleBinLive:`/api/live/recyclebin`,
+  Question:`/api/question`,
+  SendMail:`/api/send-mail`,
+  ListUser:`/api/listuser`,
+  RecycleBinUser:`/api/listuser/recyclebin`,
+  Comment:`/api/comment`,
+  CommentNews:`/api/comment/news`,
+  ListQuestion:`/api/questionlive`,
+
+
+
 };
 
 export default axios.create({

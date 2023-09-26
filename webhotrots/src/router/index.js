@@ -21,7 +21,16 @@ import NewsDetailClient from '../client/components/NewsDetailClient.vue'
 import DepartmentDetailCl from '../client/components/DepartmentDetailCl.vue'
 import Live from '../admin/components/Live.vue'
 import FaQuestion from '../client/components/FaQuestion.vue'
-
+import LiveDetail from '../admin/components/LiveDetail.vue'
+import AddLive from '../admin/components/AddLive.vue'
+import LiveClient from '../client/components/LiveCl.vue'
+import unauthorized from '@/components/Unauthorized.vue'
+import { isAdmin,checkLogin } from '@/configs/Unauthorized'
+import CurrentUser from '../client/components/CurrentUser.vue'
+import ListUser from '../admin/components/ListUser.vue'
+import UserDetail from '../admin/components/UserDetail.vue'
+import AddUserAdviser from '../admin/components/AddUserAdviser.vue'
+import ListQuestionLive from '../client/components/ListQuestionLive.vue'
 const routes = [
   {
     path: '/',
@@ -31,7 +40,13 @@ const routes = [
       {
         path: 'login',
         name: "login",
+        beforeEnter:checkLogin,
         component: Login
+      },
+      {
+        path: 'current-user',
+        name: "currentUser",
+        component: CurrentUser
       },
       {
         path: 'register',
@@ -69,6 +84,16 @@ const routes = [
         component: DepartmentDetailCl
       },
       {
+        path: 'live-client',
+        name: "livecl",
+        component: LiveClient
+      },
+      {
+        path: 'live-client/:id',
+        name: "liveclDetail",
+        component: ListQuestionLive
+      },
+      {
         path: 'fa-question',
         name:'faquestion', // Đây là trang chính, có thể sử dụng component Home.vue
         component:FaQuestion
@@ -79,6 +104,7 @@ const routes = [
     path: '/admin',
     name: 'Homeadmin',
     component: HomeAdmin,
+    beforeEnter:isAdmin,
     children:[
       {
         path: 'banner',
@@ -104,6 +130,16 @@ const routes = [
         path: 'live',
         name:'live', // Đây là trang chính, có thể sử dụng component Home.vue
         component:Live
+      },
+      {
+        path: 'live/:id',
+        name:'liveDetail', // Đây là trang chính, có thể sử dụng component Home.vue
+        component:LiveDetail
+      },
+      {
+        path: 'add-live',
+        name:'addLive', // Đây là trang chính, có thể sử dụng component Home.vue
+        component:AddLive
       },
       {
         path: 'newscxd',
@@ -135,8 +171,28 @@ const routes = [
         name:'addDep', // Đây là trang chính, có thể sử dụng component Home.vue
         component:AddDep
       },
+      {
+        path: 'list-user',
+        name:'listUser', // Đây là trang chính, có thể sử dụng component Home.vue
+        component:ListUser
+      },
+      {
+        path: 'list-user/:id',
+        name:'userDetail', // Đây là trang chính, có thể sử dụng component Home.vue
+        component:UserDetail
+      },
+      {
+        path: 'add-user',
+        name:'addUserAdviser', // Đây là trang chính, có thể sử dụng component Home.vue
+        component:AddUserAdviser
+      },
     ]
-  }
+  },
+  {
+    path: '/error',
+    name:'unauthorized', // Đây là trang chính, có thể sử dụng component Home.vue
+    component:unauthorized
+  },
 ]
 
 const router = createRouter({

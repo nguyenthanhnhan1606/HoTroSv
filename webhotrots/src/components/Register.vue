@@ -1,6 +1,9 @@
 <template>
   <section class="h-100 bg-dark">
     <div class="container py-5 h-100">
+      <div class="d-flex justify-content-center overlay" v-if="myFlag">
+        <div class="spinner-border" role="status"></div>
+      </div>
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col">
           <div class="card card-registration my-4">
@@ -92,7 +95,6 @@
                           />
                         </div>
                       </div>
-
                       <div class="col-md-6 mb-4">
                         <div class="form-outline">
                           <label for="gioitinh" class="form-label"
@@ -186,8 +188,10 @@ export default {
         gioitinh: "",
         name: "",
         sdt: "",
+        userRole: "ROLE_USER",
       },
       errorMessage: "",
+      myFlag: false,
     };
   },
   methods: {
@@ -203,35 +207,45 @@ export default {
           this.user.avatar === null
         ) {
           this.errorMessage = "Không được bỏ trống những ô có dấu *";
-        }
-        const formData = new FormData();
-        formData.append("name", this.user.ho + " " + this.user.ten);
-        formData.append("username", this.user.username);
-        formData.append("password", this.user.password);
-        formData.append("email", this.user.username);
-        formData.append("ngaysinh", this.user.ngaysinh);
-        formData.append("sdt", this.user.sdt);
-        formData.append("gioitinh", this.user.gioitinh);
-        formData.append("file", this.user.avatar);
-        const res = await Apis.post(`${endpoints["Register"]}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        if (res.data === true) {
-          alert("Đăng ký thành công");
-          this.$router.push({ name: "login" });
         } else {
-          alert("Đăng ký thất bại");
+          this.showSpinner(true)
+          const formData = new FormData();
+          formData.append("name", this.user.ho + " " + this.user.ten);
+          formData.append("username", this.user.username);
+          formData.append("password", this.user.password);
+          formData.append("email", this.user.email);
+          formData.append("ngaysinh", this.user.ngaysinh);
+          formData.append("sdt", this.user.sdt);
+          formData.append("gioitinh", this.user.gioitinh);
+          formData.append("userRole", this.user.userRole);
+          formData.append("file", this.user.avatar);
+          const res = await Apis.post(`${endpoints["Register"]}`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          if (res.data === true) {
+            this.showSpinner(false);
+            alert("Đăng ký thành công");
+            this.$router.push({ name: "login" });
+          } else {
+            this.showSpinner(false);
+            alert("Đăng ký thất bại");
+            this.errorMessage = "Tên đăng nhập đã có người sử dụng";
+
+          }
         }
       } catch (error) {
-        console.error("Error updating banner:", error);
+        alertr("Đã có lỗi xảy ra. Xin hãy quay lại sau!!");
       }
     },
     onFileChange(event) {
       const file = event.target.files[0];
 
       this.user.avatar = file;
+    },
+    showSpinner(flag) {
+      this.myFlag = flag;
     },
   },
   watch: {
@@ -242,6 +256,22 @@ export default {
   },
 };
 </script>
+<style>
+/* CSS cho overlay */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Màu nền đậy mờ */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* Đảm bảo spinner luôn ở trên cùng */
+}
+</style>
   
 
   

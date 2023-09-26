@@ -1,5 +1,6 @@
 package com.ntn.wedhotrots.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 
@@ -20,9 +21,10 @@ public class Reply implements Serializable {
     @Column(name = "content")
     private String content;
     @Basic(optional = false)
-    @Column(name = "ngayreplyl")
+    @Column(name = "ngayreply")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date ngayreplyl;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+7")
+    private Date ngayreply;
     @JoinColumn(name = "id_comment", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Comments idComment;
@@ -37,10 +39,10 @@ public class Reply implements Serializable {
         this.id = id;
     }
 
-    public Reply(Integer id, String content, Date ngayreplyl) {
+    public Reply(Integer id, String content, Date ngayreply) {
         this.id = id;
         this.content = content;
-        this.ngayreplyl = ngayreplyl;
+        this.ngayreply = ngayreply;
     }
 
     public Integer getId() {
@@ -59,12 +61,12 @@ public class Reply implements Serializable {
         this.content = content;
     }
 
-    public Date getNgayreplyl() {
-        return ngayreplyl;
+    public Date getNgayreply() {
+        return ngayreply;
     }
 
-    public void setNgayreplyl(Date ngayreplyl) {
-        this.ngayreplyl = ngayreplyl;
+    public void setNgayreply(Date ngayreply) {
+        this.ngayreply = ngayreply;
     }
 
     public Comments getIdComment() {

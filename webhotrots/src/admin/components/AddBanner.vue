@@ -50,7 +50,7 @@
 </template>
   
   <script>
-import Apis from "@/configs/Apis";
+import Apis, { authApi } from "@/configs/Apis";
 import { endpoints } from "@/configs/Apis";
 
 export default {
@@ -74,7 +74,7 @@ export default {
         formData.append("description", this.banner.description);
         formData.append("file", this.banner.image);
 
-        await Apis.post(`${endpoints["Banner"]}`, formData, {
+        await authApi().post(`${endpoints["Banner"]}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

@@ -34,6 +34,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserById(int id) {
+        Optional<User> u= userRepo.findById(id);
+        return  u.get();
+    }
+
+    @Override
+    public List<User> getAllsUser() {
+        return userRepo.getAllsUser();
+    }
+
+    @Override
+    public boolean checkUsername(String username) {
+        Optional<User> u = userRepo.getUserByUsername(username);
+        if(u.isPresent())
+            return true;
+        return false;
+    }
+
+    @Override
     public boolean authUser(String username, String password) {
         Optional<User> userOptional = this.userRepo.getUserByUsername(username);
 
@@ -45,8 +64,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean updateUser(User u) {
+        Optional<User> user = userRepo.findById(u.getId());
+        if(user.isPresent()) {
+            try {
+                User user1 = user.get();
+                user1.setEmail(u.getEmail());
+                user1.setGioitinh(u.getGioitinh());
+                user1.setName(u.getName());
+                user1.setNgaysinh(u.getNgaysinh());
+                user1.setUserRole(u.getUserRole());
+                user1.setSdt(u.getSdt());
+                userRepo.save(user1);
+                return true;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    @Override
     public boolean addUser(Map<String, String> params, MultipartFile file) {
         try {
+            if(checkUsername(params.get("username").trim()))
+                return false;
             SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
             User u = new User();
             u.setActive((byte) 1);
@@ -54,7 +96,7 @@ public class UserServiceImpl implements UserService {
             u.setGioitinh(params.get("gioitinh"));
             u.setName(params.get("name"));
             u.setNgaysinh(dateFormatter.parse(params.get("ngaysinh")));
-            u.setUserRole("ROLE_USER");
+            u.setUserRole(params.get("userRole"));
             u.setPassword(passwordEnc.encode(params.get("password")));
             u.setUsername(params.get("username"));
             u.setSdt(params.get("sdt"));
@@ -71,6 +113,18 @@ public class UserServiceImpl implements UserService {
             return true;
         }catch (Exception ex){
             ex.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean recycleBin(int id) {
+        Optional<User> u = userRepo.findById(id);
+        if(u.isPresent()){
+            User user = u.get();
+            user.setActive((byte) 0 );
+            userRepo.save(user);
+            return true;
         }
         return false;
     }

@@ -51,9 +51,9 @@
       </a>
     </div>
     <!--Main layout-->
-    <div class="container mt-5">
+    <div class="mt-3" style="margin-left: 20px;margin-right: 20px;">
       <!--Section: News of the day-->
-      <section class="border-bottom pb-4 mb-5">
+      <!-- <section class="border-bottom pb-4 mb-5">
         <div class="row gx-5">
           <div class="col-md-6 mb-4">
             <div
@@ -87,7 +87,7 @@
             <button type="button" class="btn btn-primary">Read more</button>
           </div>
         </div>
-      </section>
+      </section> -->
 
       <section>
         <div class="row gx-lg-5">

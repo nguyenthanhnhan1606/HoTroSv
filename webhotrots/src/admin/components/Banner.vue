@@ -50,7 +50,7 @@
 </template>
   
   <script>
-import Apis from "@/configs/Apis.js";
+import Apis, { authApi } from "@/configs/Apis.js";
 import { endpoints } from "@/configs/Apis.js";
 export default {
   name: "Banner",
@@ -75,7 +75,7 @@ export default {
     async deleteBanner(id) {
       try {
         // Gọi API RecycleBin với id của banner
-        const response = await Apis.put(`${endpoints['RecycleBinBanner']}/${id}`);
+        const response = await authApi().put(`${endpoints['RecycleBinBanner']}/${id}`);
         if (response.data) {
           alert("Xóa thành công")
           this.fetchData();

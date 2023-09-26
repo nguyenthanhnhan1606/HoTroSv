@@ -73,7 +73,7 @@
 </template>
     
     <script>
-import Apis from "@/configs/Apis.js";
+import Apis, { authApi } from "@/configs/Apis.js";
 import { endpoints } from "@/configs/Apis.js";
 
 export default {
@@ -100,7 +100,7 @@ export default {
         formData.append("trungbinhdiem", this.department.trungbinhdiem);
         formData.append("website", this.department.website);
         formData.append("video", this.department.video);
-        const res = await Apis.post(`${endpoints["Department"]}`, formData, {
+        const res = await authApi().post(`${endpoints["Department"]}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

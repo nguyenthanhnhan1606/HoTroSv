@@ -50,7 +50,7 @@
         </tbody>
       </table>
       <router-link :to="{ name: 'addNews' }">
-      <button class="btn btn-info" title="Thêm">
+      <button class="btn btn-info mb-3" title="Thêm">
         <i class="fa-solid fa-plus"></i> Thêm thông tin
       </button>
     </router-link>

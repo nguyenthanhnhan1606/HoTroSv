@@ -6,16 +6,14 @@ import com.ntn.wedhotrots.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.*;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -30,6 +28,18 @@ public class UserController {
     private JwtService jwtService;
 
 
+    @GetMapping("/listuser")
+    @CrossOrigin
+    public List<User> getAlls(){
+        return userSer.getAllsUser();
+    }
+
+    @GetMapping("/listuser/{id}")
+    @CrossOrigin
+    public User getUserByName(@PathVariable int id) {
+        return this.userSer.getUserById(id);
+    }
+
     @GetMapping("current-user")
     @CrossOrigin
     public User detail(Principal user){
@@ -41,13 +51,13 @@ public class UserController {
     @CrossOrigin
     public ResponseEntity<String> Login(@RequestBody User user){
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername().trim(),user.getPassword()));
         } catch (BadCredentialsException e) {
             return new ResponseEntity<>("error",HttpStatus.OK);
         } catch (DisabledException disabledException) {
             return null;
         }
-        final UserDetails userDetails = this.userSer.loadUserByUsername(user.getUsername());
+        final UserDetails userDetails = this.userSer.loadUserByUsername(user.getUsername().trim());
         final String token = jwtService.generateToken(userDetails.getUsername());
         return new ResponseEntity<>(token, HttpStatus.OK);
 
@@ -57,5 +67,17 @@ public class UserController {
     @CrossOrigin
     public boolean addUser(@RequestParam Map<String, String> params, @RequestParam MultipartFile file) throws IOException {
         return userSer.addUser(params,file);
+    }
+
+    @PutMapping("/listuser/{id}")
+    @CrossOrigin
+    public boolean updateUser(@RequestBody User u){
+        return this.userSer.updateUser(u);
+    }
+
+    @PutMapping("/listuser/recyclebin/{id}")
+    @CrossOrigin
+    public boolean RecycleBinUser(@PathVariable int id){
+        return this.userSer.recycleBin(id);
     }
 }
