@@ -7,6 +7,9 @@ import com.ntn.wedhotrots.pojo.Banner;
 import com.ntn.wedhotrots.repository.BannerRepository;
 import com.ntn.wedhotrots.service.BannerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,8 +26,23 @@ public class BannerServiceImpl implements BannerService {
     private Cloudinary cloudinary;
 
     @Override
-    public List<Banner> getALls() {
-        return (List<Banner>) bannerRepo.findBanners();
+    public List<Banner> getALls(Map<String,String> params) {
+        Pageable pageable = Pageable.unpaged(); // Default to unpaged
+        String search="";
+
+        if (params != null) {
+            String pageStr = params.get("page");
+            if (pageStr != null && !pageStr.isEmpty()) {
+                int page = Integer.parseInt(pageStr);
+                page -=1;
+                pageable = PageRequest.of(page, 10, Sort.by("id").descending());
+            }
+            search = params.get("search");
+        }
+        if (search != null && !search.isEmpty()) {
+            return bannerRepo.findBanners(pageable, search);
+        }
+        return bannerRepo.findBanners(pageable, "");
     }
 
     @Override

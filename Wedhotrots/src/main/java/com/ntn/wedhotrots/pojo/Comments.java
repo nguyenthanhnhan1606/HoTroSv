@@ -88,7 +88,6 @@ public class Comments implements Serializable {
         this.idUser = idUser;
     }
 
-    @JsonIgnore
     public Set<Reply> getReplySet() {
         return replySet;
     }

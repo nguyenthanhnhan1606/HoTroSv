@@ -7,6 +7,9 @@ import com.ntn.wedhotrots.pojo.Departments;
 import com.ntn.wedhotrots.repository.DepartmentRepository;
 import com.ntn.wedhotrots.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,8 +27,23 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 
     @Override
-    public List<Departments> getAll() {
-        return departmentRepo.findAlls();
+    public List<Departments> getAll(Map<String,String> params) {
+        Pageable pageable = Pageable.unpaged();
+        String search="";
+
+        if (params != null) {
+            String pageStr = params.get("page");
+            if (pageStr != null && !pageStr.isEmpty()) {
+                int page = Integer.parseInt(pageStr);
+                page -=1;
+                pageable = PageRequest.of(page, 2, Sort.by("id").descending());
+            }
+            search = params.get("search");
+        }
+        if (search != null && !search.isEmpty()) {
+            return departmentRepo.findAlls(pageable, search);
+        }
+        return departmentRepo.findAlls(pageable, "");
     }
 
     @Override

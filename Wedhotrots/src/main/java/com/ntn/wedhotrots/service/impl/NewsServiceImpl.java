@@ -27,14 +27,25 @@ public class NewsServiceImpl implements NewsService {
 
 
     @Override
-    public List<News> getAlls() {
-        return newsRepo.findNews();
+    public List<News> getAlls(Map<String,String> params) {
+        Pageable pageable = Pageable.unpaged();
+        String search="";
+
+        if (params != null) {
+            String pageStr = params.get("page");
+            if (pageStr != null && !pageStr.isEmpty()) {
+                int page = Integer.parseInt(pageStr);
+                page -=1;
+                pageable = PageRequest.of(page, 2, Sort.by("id").descending());
+            }
+            search = params.get("search");
+        }
+        if (search != null && !search.isEmpty()) {
+            return newsRepo.findNews(pageable, search);
+        }
+        return newsRepo.findNews(pageable, "");
     }
 
-    @Override
-    public List<News> getNewsCXD() {
-        return newsRepo.findNewsCXD();
-    }
 
     @Override
     public List<News> getNewsDH(Map<String,String> params) {
@@ -156,7 +167,6 @@ public class NewsServiceImpl implements NewsService {
             n.setNgaytao(new Date());
             n.setType(params.get("type"));
             n.setActive((byte) 1);
-            n.setTrangthai("Chờ xét duyệt");
             if (file != null && !file.isEmpty()) {
                 try {
                     String url = (String) cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
@@ -170,18 +180,6 @@ public class NewsServiceImpl implements NewsService {
             return true;
         }catch (Exception ex){
             ex.printStackTrace();
-        }
-        return false;
-    }
-
-    @Override
-    public boolean duyetNews(int id,String trangthai) {
-        Optional<News> newsOptional = newsRepo.findById(id);
-        if (newsOptional.isPresent()) {
-            News n = newsOptional.get();
-            n.setTrangthai(trangthai);
-            newsRepo.save(n);
-            return true;
         }
         return false;
     }

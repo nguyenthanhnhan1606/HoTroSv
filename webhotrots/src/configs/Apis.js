@@ -17,7 +17,6 @@ export const endpoints = {
   UpdateBanner:`/api/banner/update`,
   RecycleBinBanner:`/api/banner/recyclebin`,
   News:`/api/news`,
-  NewsCxd:`/api/newscxd`,
   NewsDH:`/api/newsdh`,
   NewsSDH:`/api/newssdh`,
   NewsTT:`/api/newstt`,
@@ -27,6 +26,7 @@ export const endpoints = {
   PageTT:`/api/newspagett`,
   PageTX:`/api/newspagetx`,
   PageLive:`/api/pagelive`,
+  PageFAQ:`/api/pagefaquestions`,
   UpdateNews:`/api/news/update`,
   RecycleBinNews:`/api/news/recyclebin`,
   DuyetNews:`/api/news/check`,
@@ -44,6 +44,9 @@ export const endpoints = {
   Comment:`/api/comment`,
   CommentNews:`/api/comment/news`,
   ListQuestion:`/api/questionlive`,
+  FaQuestion:`/api/faquestions`,
+  Reply:`/api/reply`,
+
 
 
 

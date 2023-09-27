@@ -48,6 +48,65 @@
         <i class="fa-solid fa-plus"></i> Thêm
       </button>
     </router-link>
+    <div class="d-flex justify-content-center">
+      <!--Pagination -->
+      <nav class="my-2 pt-2">
+        <ul class="pagination pagination-circle pg-info mb-0">
+          <!--First-->
+          <li class="page-item clearfix d-none d-md-block">
+            <a
+              href="#"
+              class="page-link waves-effect"
+              @click="setCurrentPage(1)"
+            >
+              First
+            </a>
+          </li>
+          <!--Arrow left-->
+          <li class="page-item">
+            <a
+              href="#"
+              class="page-link waves-effect"
+              aria-label="Previous"
+              @click="setCurrentPage(currentPage - 1)"
+            >
+              <span aria-hidden="true">«</span>
+              <span class="sr-only"> Previous </span>
+            </a>
+          </li>
+          <!--Numbers-->
+          <li v-for="page in itemsPerPage" :key="page" class="page-item">
+            <a
+              href="#"
+              class="page-link waves-effect"
+              @click="setCurrentPage(page)"
+              >{{ page }}</a
+            >
+          </li>
+          <li class="page-item">
+            <a
+              href="#"
+              class="page-link waves-effect"
+              aria-label="Next"
+              @click="setCurrentPage(currentPage + 1)"
+            >
+              <span aria-hidden="true">»</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+          <li class="page-item clearfix d-none d-md-block">
+            <a
+              href="#"
+              class="page-link waves-effect"
+              @click="setCurrentPage(3)"
+            >
+              Last
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!--/Pagination -->
+    </div>
   </div>
 </template>
 <script>
@@ -57,30 +116,41 @@ export default {
   data() {
     return {
       lives: null,
+      currentPage: 0,
+      itemsPerPage: 0,
+      searchQuery: "",
     };
   },
   mounted() {
-    this.fecthData();
+    this.fetchData(1);
+    this.fetchPage();
   },
   methods: {
-    async fecthData() {
+    async fetchData(page) {
+      if (page < 1) page = 1;
       try {
-        const response = await Apis.get(endpoints["Live"]);
-        this.lives = response.data;
+        let location = endpoints["Live"];
+        if (this.searchQuery !== "") {
+          location = `${location}?search=${this.searchQuery}`;
+        } else if (this.searchQuery === "") {
+          location = `${location}?page=${page}`;
+        }
+        let res = await Apis.get(location);
+        this.lives = res.data;
       } catch (error) {
-        console.error("Error get live:", error);
+        console.error("Error fetching data:", error);
       }
     },
     async deleteLive(id) {
       try {
-       const result= window.confirm("Bạn có chắc muốn xóa ko?");
+        const result = window.confirm("Bạn có chắc muốn xóa ko?");
         if (result) {
           const response = await authApi().put(
             `${endpoints["RecycleBinLive"]}/${id}`
           );
           if (response.data === true) {
             alert("Xóa thành công");
-            this.fecthData();
+            this.fetchData(1);
             console.log("Live deleted successfully");
           } else {
             console.error("Error deleting live");
@@ -89,6 +159,28 @@ export default {
       } catch (error) {
         console.error("Error deleting live:", error);
       }
+    },
+    async fetchPage() {
+      try {
+        const response = await Apis.get(endpoints["PageLive"]);
+        this.itemsPerPage = response.data;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    },
+    setCurrentPage(page) {
+      this.currentPage = page;
+      this.searchQuery = "";
+      this.fetchData(page);
+    },
+  },
+  watch: {
+    "$route.query.search": {
+      handler(newSearchQuery) {
+        this.searchQuery = newSearchQuery || "";
+        this.fetchData(1);
+      },
+      // immediate: true, // Thực hiện ngay khi component được khởi tạo
     },
   },
 };

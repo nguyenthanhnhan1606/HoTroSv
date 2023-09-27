@@ -14,7 +14,7 @@ public interface UserService extends UserDetailsService {
 
     User getUserById(int id);
 
-    List<User> getAllsUser();
+    List<User> getAllsUser(Map<String,String> params);
 
     boolean checkUsername( String username);
     boolean authUser(String username, String password);

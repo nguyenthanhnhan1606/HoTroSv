@@ -27,13 +27,7 @@ public class News implements Serializable {
     @Column(name = "type")
     private String type;
 
-    @Basic(optional = false)
-    @Column(name = "trangthai")
-    private String trangthai;
 
-    public String getTrangthai() {
-        return trangthai;
-    }
 
     public byte getActive() {
         return active;
@@ -43,9 +37,6 @@ public class News implements Serializable {
         this.active = active;
     }
 
-    public void setTrangthai(String trangthai) {
-        this.trangthai = trangthai;
-    }
 
     @Column(name = "active")
     private byte active;

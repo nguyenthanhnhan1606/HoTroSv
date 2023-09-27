@@ -28,6 +28,6 @@ export default {
 
 <style>
 .sidebar {
-  height: 600px;
+  height: 650px;
 }
 </style>

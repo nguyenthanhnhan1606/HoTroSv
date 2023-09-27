@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface DepartmentService {
-    List<Departments> getAll();
+    List<Departments> getAll(Map<String,String> params);
     Optional<Departments> getDepById(int id);
 
     boolean updateDep(int id, Map<String, String> params, MultipartFile file);

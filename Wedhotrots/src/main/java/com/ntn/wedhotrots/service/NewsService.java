@@ -8,9 +8,8 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface NewsService {
-    List<News> getAlls();
+    List<News> getAlls(Map <String, String> params);
 
-    List<News> getNewsCXD();
 
     List<News> getNewsDH(Map<String,String> params);
     List<News> getNewsSDH(Map<String,String> params);
@@ -22,7 +21,7 @@ public interface NewsService {
 
     boolean addNews(Map<String, String> params, MultipartFile file);
 
-    boolean duyetNews(int id, String trangthai);
+
 
     boolean recycleBin(int id);
 }

@@ -7,7 +7,6 @@ import AddBanner from '../admin/components/AddBanner.vue'
 import News from '../admin/components/News.vue'
 import NewsDetail from '../admin/components/NewsDetail.vue'
 import AddNews from '../admin/components/AddNews.vue'
-import NewsCxd from '../admin/components/NewsCxd.vue'
 import Department from '../admin/components/Department.vue'
 import DepartmentDetail from '../admin/components/DepartmentDetail.vue'
 import AddDep from '../admin/components/AddDepartment.vue'
@@ -25,12 +24,16 @@ import LiveDetail from '../admin/components/LiveDetail.vue'
 import AddLive from '../admin/components/AddLive.vue'
 import LiveClient from '../client/components/LiveCl.vue'
 import unauthorized from '@/components/Unauthorized.vue'
-import { isAdmin,checkLogin } from '@/configs/Unauthorized'
+import { isAdmin, checkLogin } from '@/configs/Unauthorized'
 import CurrentUser from '../client/components/CurrentUser.vue'
 import ListUser from '../admin/components/ListUser.vue'
 import UserDetail from '../admin/components/UserDetail.vue'
 import AddUserAdviser from '../admin/components/AddUserAdviser.vue'
 import ListQuestionLive from '../client/components/ListQuestionLive.vue'
+import FaQuestionAdmin from '../admin/components/FaQuestionAdmin.vue'
+import AddFAQ from '../admin/components/AddFAQ.vue'
+import FaQuestionDetail from '../admin/components/FaQuestionDetail.vue'
+
 const routes = [
   {
     path: '/',
@@ -40,7 +43,7 @@ const routes = [
       {
         path: 'login',
         name: "login",
-        beforeEnter:checkLogin,
+        beforeEnter: checkLogin,
         component: Login
       },
       {
@@ -95,8 +98,8 @@ const routes = [
       },
       {
         path: 'fa-question',
-        name:'faquestion', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:FaQuestion
+        name: 'faquestion', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: FaQuestion
       },
     ]
   },
@@ -104,94 +107,104 @@ const routes = [
     path: '/admin',
     name: 'Homeadmin',
     component: HomeAdmin,
-    beforeEnter:isAdmin,
-    children:[
+    beforeEnter: isAdmin,
+    children: [
       {
         path: 'banner',
-        name:'banner', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:Banner
+        name: 'banner', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: Banner
       },
       {
         path: 'banner/:id',
-        name:'bannerDetail', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:BannerDetail
+        name: 'bannerDetail', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: BannerDetail
       },
       {
         path: 'add-banner',
-        name:'addBanner', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:AddBanner
+        name: 'addBanner', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: AddBanner
       },
       {
         path: 'news',
-        name:'news', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:News
+        name: 'news', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: News
       },
       {
         path: 'live',
-        name:'live', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:Live
+        name: 'live', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: Live
       },
       {
         path: 'live/:id',
-        name:'liveDetail', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:LiveDetail
+        name: 'liveDetail', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: LiveDetail
       },
       {
         path: 'add-live',
-        name:'addLive', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:AddLive
-      },
-      {
-        path: 'newscxd',
-        name:'newsCxd', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:NewsCxd
+        name: 'addLive', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: AddLive
       },
       {
         path: 'news/:id',
-        name:'newsDetail', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:NewsDetail
+        name: 'newsDetail', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: NewsDetail
       },
       {
         path: 'add-news',
-        name:'addNews', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:AddNews
+        name: 'addNews', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: AddNews
       },
       {
         path: 'department',
-        name:'department', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:Department
+        name: 'department', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: Department
       },
       {
         path: 'department/:id',
-        name:'departmentDetail', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:DepartmentDetail
+        name: 'departmentDetail', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: DepartmentDetail
       },
       {
         path: 'add-department',
-        name:'addDep', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:AddDep
+        name: 'addDep', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: AddDep
       },
       {
         path: 'list-user',
-        name:'listUser', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:ListUser
+        name: 'listUser', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: ListUser
       },
       {
         path: 'list-user/:id',
-        name:'userDetail', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:UserDetail
+        name: 'userDetail', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: UserDetail
       },
       {
         path: 'add-user',
-        name:'addUserAdviser', // Đây là trang chính, có thể sử dụng component Home.vue
-        component:AddUserAdviser
+        name: 'addUserAdviser', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: AddUserAdviser
+      },
+      {
+        path: 'faquestion',
+        name: 'faquestionAdmin', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: FaQuestionAdmin
+      },
+      {
+        path: 'add-faquestion',
+        name: 'addFaq', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: AddFAQ
+      },
+      {
+        path: 'faquestion-detail/:id',
+        name: 'faqDetail', // Đây là trang chính, có thể sử dụng component Home.vue
+        component: FaQuestionDetail
       },
     ]
   },
   {
     path: '/error',
-    name:'unauthorized', // Đây là trang chính, có thể sử dụng component Home.vue
-    component:unauthorized
+    name: 'unauthorized', // Đây là trang chính, có thể sử dụng component Home.vue
+    component: unauthorized
   },
 ]
 

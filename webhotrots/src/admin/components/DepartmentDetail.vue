@@ -31,7 +31,7 @@
         <div class="form-group">
           <label for="trungbinhdiem">Trung bình điểm 5 năm</label>
           <input
-             type="number"
+             type="text"
             class="form-control"
             id="trungbinhdiem"
             v-model="department.trungbinhdiem"

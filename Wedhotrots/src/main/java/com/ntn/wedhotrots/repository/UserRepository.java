@@ -3,6 +3,7 @@ package com.ntn.wedhotrots.repository;
 import com.ntn.wedhotrots.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +16,6 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User,Integer> {
 
     Optional<User> getUserByUsername(String username);
-    @Query("SELECT u FROM User u Where u.active=1 and u.userRole <> 'ROLE_ADMIN'")
-    List<User> getAllsUser();
+    @Query("SELECT u FROM User u Where u.active=1 AND u.name LIKE %:search% AND u.userRole <> 'ROLE_ADMIN' ")
+    List<User> getAllsUser(Pageable pageable, String search);
 }

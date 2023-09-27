@@ -6,6 +6,9 @@ import com.ntn.wedhotrots.pojo.User;
 import com.ntn.wedhotrots.repository.UserRepository;
 import com.ntn.wedhotrots.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,8 +43,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllsUser() {
-        return userRepo.getAllsUser();
+    public List<User> getAllsUser(Map<String, String> params) {
+        Pageable pageable = Pageable.unpaged();
+        String search="";
+
+        if (params != null) {
+            String pageStr = params.get("page");
+            if (pageStr != null && !pageStr.isEmpty()) {
+                int page = Integer.parseInt(pageStr);
+                page -=1;
+                pageable = PageRequest.of(page, 2, Sort.by("id").descending());
+            }
+            search = params.get("search");
+        }
+        if (search != null && !search.isEmpty()) {
+            return userRepo.getAllsUser(pageable, search);
+        }
+        return userRepo.getAllsUser(pageable, "");
     }
 
     @Override

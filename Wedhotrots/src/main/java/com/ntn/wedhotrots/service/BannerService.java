@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface BannerService {
-    List<Banner> getALls();
+    List<Banner> getALls(Map<String, String> params);
 
     boolean updateBanner(int id, Map<String, String> params, MultipartFile file);
 

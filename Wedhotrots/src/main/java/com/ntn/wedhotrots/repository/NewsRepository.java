@@ -10,12 +10,8 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 public interface NewsRepository extends JpaRepository<News, Integer> {
-    @Query("SELECT n FROM News n WHERE n.active = 1 and n.trangthai='Đã duyệt' ")
-    public List<News> findNews();
-
-    @Query("SELECT n FROM News n WHERE n.active = 1 and n.trangthai='Chờ xét duyệt' ")
-    public List<News> findNewsCXD();
-
+    @Query("SELECT n FROM News n WHERE n.active = 1 AND n.title LIKE %:search%")
+    public List<News> findNews(Pageable pageable, String search);
     @Query("SELECT n FROM News n WHERE n.active =1 and n.type='Tuyển sinh đại học' and n.title LIKE %:search% ORDER BY n.id DESC ")
     public List<News> findNewsDH(Pageable pageable,String search);
     @Query("SELECT n FROM News n WHERE n.active =1 and n.type='Tuyển sinh sau đại học' and n.title LIKE %:search% ORDER BY n.id DESC ")

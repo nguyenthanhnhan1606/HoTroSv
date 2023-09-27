@@ -18,8 +18,15 @@ public class DepartmentController {
 
     @GetMapping("/department")
     @CrossOrigin
-    public List<Departments> getAlls(){
-        return  departmentSer.getAll();
+    public List<Departments> getAlls(@RequestParam Map<String,String> params){
+        return  departmentSer.getAll(params);
+    }
+
+    @GetMapping("/department/page")
+    @CrossOrigin
+    public double page(@RequestParam Map<String, String> params){
+        double count = departmentSer.getAll(null).size();
+        return Math.ceil(count/2);
     }
 
     @GetMapping("/department/{id}")

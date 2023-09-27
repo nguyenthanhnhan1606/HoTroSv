@@ -18,9 +18,18 @@ public class BannerController {
 
     @GetMapping("/banner")
     @CrossOrigin
-    public List<Banner> getAlls(){
-        return bannerSer.getALls();
+    public List<Banner> getAlls(@RequestParam Map<String, String> params){
+        return bannerSer.getALls(params);
     }
+
+    @GetMapping("/banner/page")
+    @CrossOrigin
+    public double Page(){
+        double count = bannerSer.getALls(null).size();
+        return Math.ceil(count/2);
+    }
+
+
 
     @GetMapping("/banner/{id}")
     @CrossOrigin

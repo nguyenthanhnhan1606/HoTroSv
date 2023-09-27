@@ -38,7 +38,6 @@
         class="form-select"
         id="gioitinh"
         v-model="user.gioitinh"
-        required
       >
         <option value="">Chọn giới tính</option>
         <option value="Nam">Nam</option>

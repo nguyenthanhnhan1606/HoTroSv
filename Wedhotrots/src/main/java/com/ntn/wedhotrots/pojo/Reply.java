@@ -1,6 +1,7 @@
 package com.ntn.wedhotrots.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 
@@ -25,6 +26,8 @@ public class Reply implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+7")
     private Date ngayreply;
+
+    @JsonIgnore
     @JoinColumn(name = "id_comment", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Comments idComment;

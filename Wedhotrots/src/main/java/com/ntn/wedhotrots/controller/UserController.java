@@ -30,8 +30,14 @@ public class UserController {
 
     @GetMapping("/listuser")
     @CrossOrigin
-    public List<User> getAlls(){
-        return userSer.getAllsUser();
+    public List<User> getAlls(@RequestParam Map<String, String> params){
+        return userSer.getAllsUser(params);
+    }
+    @GetMapping("/listuser/page")
+    @CrossOrigin
+    public double Page(){
+        double count = userSer.getAllsUser(null).size();
+        return Math.ceil(count/2);
     }
 
     @GetMapping("/listuser/{id}")

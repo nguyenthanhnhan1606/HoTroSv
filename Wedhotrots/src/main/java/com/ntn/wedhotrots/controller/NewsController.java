@@ -19,14 +19,15 @@ public class NewsController {
 
     @GetMapping("/news")
     @CrossOrigin
-    public List<News> getAlls(){
-        return newsSer.getAlls();
+    public List<News> getAlls(@RequestParam Map<String, String> params){
+        return newsSer.getAlls(params);
     }
 
-    @GetMapping("/newscxd")
+    @GetMapping("/news/page")
     @CrossOrigin
-    public List<News> getNewsCxd(){
-        return newsSer.getNewsCXD();
+    public double page(@RequestParam Map<String, String> params){
+        double count = newsSer.getAlls(null).size();
+        return Math.ceil(count/2);
     }
 
     @GetMapping("/news/{id}")
@@ -106,12 +107,6 @@ public class NewsController {
     @CrossOrigin
     public boolean updateNews(@PathVariable int id, @RequestParam Map<String, String> params, @RequestParam(required = false)MultipartFile file){
         return newsSer.updateNews(id,params,file);
-    }
-
-    @PutMapping("/news/check/{id}")
-    @CrossOrigin
-    public boolean duyetNews(@PathVariable int id, @RequestParam String trangthai){
-        return newsSer.duyetNews(id,trangthai);
     }
 
 

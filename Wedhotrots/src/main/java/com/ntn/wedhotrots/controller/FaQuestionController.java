@@ -3,27 +3,52 @@ package com.ntn.wedhotrots.controller;
 import com.ntn.wedhotrots.pojo.Faquestion;
 import com.ntn.wedhotrots.service.FaQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
-//@RequestMapping("/api")
+@RequestMapping("/api")
 public class FaQuestionController {
     @Autowired
     private FaQuestionService faQuestionService;
 
-    @GetMapping("/test")
+    @GetMapping("/faquestions/{id}")
     @CrossOrigin
-    public List<Faquestion> getAlls(){
-        List<Faquestion> faquestions = faQuestionService.getAlls();
-        if(faquestions == null){
-            faquestions = new ArrayList<>();
-        }
-        return faquestions;
+    public Optional<Faquestion> getAlls(@PathVariable int id){
+        return faQuestionService.getFAQByiD(id);
+    }
+    @GetMapping("/faquestions")
+    @CrossOrigin
+    public List<Faquestion> getAlls(@RequestParam Map<String,String> params){
+        return faQuestionService.getAlls(params);
+    }
+    @GetMapping("/pagefaquestions")
+    @CrossOrigin
+    public double getPageTT(){
+        double count = faQuestionService.getAlls(null).size();
+        return Math.ceil(count/2);
+    }
+
+    @PostMapping("/faquestions")
+    @CrossOrigin
+    public boolean addFAQ(@RequestBody Faquestion f){
+        return faQuestionService.addFAQ(f);
+    }
+
+    @PutMapping("/faquestions/{id}")
+    @CrossOrigin
+    public boolean updateFAQ(@PathVariable int id,@RequestBody Faquestion f){
+        return faQuestionService.updateFAQ(id,f);
+    }
+
+    @DeleteMapping("/faquestions/{id}")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteFAQ(@PathVariable int id){
+        faQuestionService.deleteFAQ(id);
     }
 }

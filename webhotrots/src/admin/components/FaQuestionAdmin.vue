@@ -1,63 +1,35 @@
 <template>
   <div>
-    <h1 class="text-center text-info">Quản lý danh sách các thông tin</h1>
+    <h1 class="text-center text-info">Thêm câu hỏi thường gặp</h1>
 
     <table class="table table-bordered">
       <thead class="thead-dark">
         <tr>
-          <th scope="col" class="text-center">ID</th>
-          <th scope="col" class="text-center">Tên khoa</th>
-          <th scope="col" class="text-center">Giới thiệu</th>
-          <th scope="col" class="text-center">Chương trình đào tạo</th>
-          <th scope="col" class="text-center">Trung bình điểm 5 năm</th>
-          <th scope="col" class="text-center">Website</th>
-          <th scope="col" class="text-center">Video</th>
-          <th scope="col" class="text-center">Hành động</th>
+          <th scope="col" class="text-center">id</th>
+          <th scope="col" class="text-center">Câu hỏi</th>
+          <th scope="col" class="text-center">Câu trả lời</th>
+          <th scope="col" class="text-center">Thao tác</th>
+
         </tr>
       </thead>
       <tbody>
-        <tr v-for="k in responseData" :key="k.id">
-          <td class="text-center">{{ k.id }}</td>
-          <td class="text-center">{{ k.tenkhoa }}</td>
+        <tr v-for="q in questions" :key="q.id">
+          <td class="text-center">{{ q.id }}</td>
+
+          <td class="text-center">{{ q.question }}</td>
+          <td class="text-center">{{ q.answers }}</td>
           <td class="text-center">
-            <span v-b-tooltip.hover :title="k.mota">
-              {{ k.mota.substring(0, 20) }}{{ k.mota.length > 50 ? "..." : "" }}
-            </span>
-          </td>
-          <td class="text-center">
-            <span v-b-tooltip.hover :title="k.motaCTDT">
-              {{ k.motaCTDT.substring(0, 20)
-              }}{{ k.motaCTDT.length > 50 ? "..." : "" }}
-            </span>
-          </td>
-          <td class="text-center">{{ k.trungbinhdiem }}</td>
-          <td class="text-center">
-            <a :href="k.website" target="_blank" class="nav-link">{{
-              k.website
-            }}</a>
-          </td>
-          <td class="text-center">
-            <div v-if="k.video">
-              <!-- <i class="fas fa-video"></i> -->
-              <video width="80" height="40" controls>
-                <source :src="k.video" type="video/mp4" />
-              </video>
-            </div>
-            <div v-else>Không có video nào</div>
-          </td>
-          <td class="text-center">
-            <router-link
-              :to="{ name: 'departmentDetail', params: { id: k.id } }"
-            >
+            <router-link :to="{ name: 'faqDetail', params: { id: q.id } }">
               <button class="btn btn-success" title="Cập nhật">
                 <i class="fa fa-edit"></i> Cập nhật
               </button>
             </router-link>
+
             <button
               class="btn btn-danger"
               style="margin-left: 10px"
               title="Xóa"
-              @click="confirmDelete(k.id)"
+              @click="deleteFAQ(q.id)"
             >
               <i class="fa fa-trash"></i> Xóa
             </button>
@@ -65,9 +37,9 @@
         </tr>
       </tbody>
     </table>
-    <router-link :to="{ name: 'addDep' }">
+    <router-link :to="{ name: 'addFaq' }">
       <button class="btn btn-info" title="Thêm">
-        <i class="fa-solid fa-plus"></i> Thêm khoa
+        <i class="fa-solid fa-plus"></i> Thêm
       </button>
     </router-link>
     <div class="d-flex justify-content-center">
@@ -131,17 +103,13 @@
     </div>
   </div>
 </template>
-  
-  
-  <script>
-import Apis, { authApi } from "@/configs/Apis.js";
-import { endpoints } from "@/configs/Apis.js";
-
+<script>
+import Apis, { authApi, endpoints } from "@/configs/Apis";
 export default {
-  name: "Department",
+  name: "FaQuestionAdmin",
   data() {
     return {
-      responseData: null,
+      questions: null,
       currentPage: 0,
       itemsPerPage: 0,
       searchQuery: "",
@@ -149,44 +117,46 @@ export default {
   },
   mounted() {
     this.fetchData(1);
-    this.fetchPage();
+    this.fetchPageFAQ();
   },
   methods: {
     async fetchData(page) {
       if (page < 1) page = 1;
       try {
-        let location = endpoints["Department"];
+        let location = endpoints["FaQuestion"];
         if (this.searchQuery !== "") {
           location = `${location}?search=${this.searchQuery}`;
         } else if (this.searchQuery === "") {
           location = `${location}?page=${page}`;
         }
         let res = await Apis.get(location);
-        this.responseData = res.data;
+        this.questions = res.data;
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     },
-    async deleteNews(id) {
+    async deleteFAQ(id) {
       try {
-        // Gọi API RecycleBin với id của thông tin
-        const response = await authApi().put(
-          `${endpoints["RecycleBinNews"]}/${id}`
-        );
-        if (response.data === true) {
-          alert("Xóa thành công");
-          this.fetchData(1);
-          console.log("News deleted successfully");
-        } else {
-          console.error("Error deleting news");
+        const result = window.confirm("Bạn có chắc muốn xóa ko?");
+        if (result) {
+          const response = await authApi().delete(
+            `${endpoints["FaQuestion"]}/${id}`
+          );
+          if (response.status === 204) {
+            alert("Xóa thành công");
+            this.fetchData(1);
+            console.log("Live deleted successfully");
+          } else {
+            console.error("Error deleting live");
+          }
         }
       } catch (error) {
-        console.error("Error deleting news:", error);
+        console.error("Error deleting live:", error);
       }
     },
-    async fetchPage() {
+    async fetchPageFAQ() {
       try {
-        const response = await Apis.get(`${endpoints["Department"]}/page`);
+        const response = await Apis.get(endpoints["PageFAQ"]);
         this.itemsPerPage = response.data;
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -209,4 +179,3 @@ export default {
   },
 };
 </script>
-  
