@@ -148,14 +148,19 @@ export default {
     },
     async deleteNews(id) {
       try {
-        // Gọi API RecycleBin với id của banner
-        const response = await authApi().put(`${endpoints["RecycleBinNews"]}/${id}`);
-        if (response.data === true) {
-          alert("Xóa thành công");
-          this.fetchData(1);
-          console.log("News deleted successfully");
-        } else {
-          console.error("Error deleting news");
+        const result = window.confirm("Bạn có chắc muốn xóa ko?");
+        if (result) {
+          // Gọi API RecycleBin với id của banner
+          const response = await authApi().put(
+            `${endpoints["RecycleBinNews"]}/${id}`
+          );
+          if (response.data === true) {
+            alert("Xóa thành công");
+            this.fetchData(1);
+            console.log("News deleted successfully");
+          } else {
+            console.error("Error deleting news");
+          }
         }
       } catch (error) {
         console.error("Error deleting news:", error);

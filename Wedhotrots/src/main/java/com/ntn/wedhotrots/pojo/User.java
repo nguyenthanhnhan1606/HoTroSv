@@ -47,8 +47,6 @@ public class User implements Serializable {
     private String userRole;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser")
     private Set<Comments> commentsSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAdvisor")
-    private Set<Answers> answersSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser")
     private Set<Questions> questionsSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAdvisor")
@@ -169,15 +167,6 @@ public class User implements Serializable {
     }
 
     @JsonIgnore
-    public Set<Answers> getAnswersSet() {
-        return answersSet;
-    }
-
-    public void setAnswersSet(Set<Answers> answersSet) {
-        this.answersSet = answersSet;
-    }
-
-    @JsonIgnore
     public Set<Questions> getQuestionsSet() {
         return questionsSet;
     }
@@ -217,7 +206,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.dht.pojo.User[ id=" + id + " ]";
+        return "com.ntn.wedhotrots.pojo.User[ id=" + id + " ]";
     }
 
 }

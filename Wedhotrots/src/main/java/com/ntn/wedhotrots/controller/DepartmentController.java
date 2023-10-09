@@ -47,5 +47,10 @@ public class DepartmentController {
         return departmentSer.updateDep(id,params,file);
     }
 
+    @PutMapping("/department/recyclebin/{id}")
+    @CrossOrigin
+    public boolean RecycleBinDep(@PathVariable int id){
+        return  departmentSer.RecycleBinDep(id);
+    }
 
 }

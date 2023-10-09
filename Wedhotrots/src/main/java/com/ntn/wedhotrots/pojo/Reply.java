@@ -110,7 +110,7 @@ public class Reply implements Serializable {
 
     @Override
     public String toString() {
-        return "com.dht.pojo.Reply[ id=" + id + " ]";
+        return "com.ntn.wedhotrots.pojo.Reply[ id=" + id + " ]";
     }
 
 }

@@ -36,7 +36,7 @@ public class NewsServiceImpl implements NewsService {
             if (pageStr != null && !pageStr.isEmpty()) {
                 int page = Integer.parseInt(pageStr);
                 page -=1;
-                pageable = PageRequest.of(page, 2, Sort.by("id").descending());
+                pageable = PageRequest.of(page, 10, Sort.by("id").descending());
             }
             search = params.get("search");
         }
@@ -57,7 +57,7 @@ public class NewsServiceImpl implements NewsService {
             if (pageStr != null && !pageStr.isEmpty()) {
                 int page = Integer.parseInt(pageStr);
                 page -=1;
-                pageable = PageRequest.of(page, 2, Sort.by("id").descending());
+                pageable = PageRequest.of(page, 10, Sort.by("id").descending());
             }
             search = params.get("search");
         }
@@ -77,7 +77,7 @@ public class NewsServiceImpl implements NewsService {
             if (pageStr != null && !pageStr.isEmpty()) {
                 int page = Integer.parseInt(pageStr);
                 page -=1;
-                pageable = PageRequest.of(page, 2, Sort.by("id").descending());
+                pageable = PageRequest.of(page, 10, Sort.by("id").descending());
             }
              search = params.get("search");
         }
@@ -97,7 +97,7 @@ public class NewsServiceImpl implements NewsService {
             if (pageStr != null && !pageStr.isEmpty()) {
                 int page = Integer.parseInt(pageStr);
                 page -=1;
-                pageable = PageRequest.of(page, 2, Sort.by("id").descending());
+                pageable = PageRequest.of(page, 10, Sort.by("id").descending());
             }
             search = params.get("search");
         }
@@ -117,7 +117,7 @@ public class NewsServiceImpl implements NewsService {
             if (pageStr != null && !pageStr.isEmpty()) {
                 int page = Integer.parseInt(pageStr);
                 page -=1;
-                pageable = PageRequest.of(page, 2, Sort.by("id").descending());
+                pageable = PageRequest.of(page, 10, Sort.by("id").descending());
             }
             search = params.get("search");
         }

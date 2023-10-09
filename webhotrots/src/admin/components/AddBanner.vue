@@ -66,23 +66,35 @@ export default {
   },
   methods: {
     async addBanner() {
-      if(name === "" || description ==="" || image===null)
-        alert("Bạn phải điền đủ thông tin")  
-      try {
-        const formData = new FormData();
-        formData.append("name", this.banner.name);
-        formData.append("description", this.banner.description);
-        formData.append("file", this.banner.image);
+      if (
+        this.banner.name === "" ||
+        this.banner.description === "" ||
+        this.banner.image === null
+      )
+        alert("Bạn phải điền đủ thông tin");
+      else if (
+        this.banner.image.type !== "image/jpeg" &&
+        this.banner.image.type !== "image/jpg" &&
+        this.banner.image.type !== "image/png"
+      )
+        alert("Bạn hãy chọn những file có định dạng *.jpg, *.jepg, *.png");
+      else {
+        try {
+          const formData = new FormData();
+          formData.append("name", this.banner.name);
+          formData.append("description", this.banner.description);
+          formData.append("file", this.banner.image);
 
-        await authApi().post(`${endpoints["Banner"]}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+          await authApi().post(`${endpoints["Banner"]}`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
 
-        this.$router.push({ name: "banner" });
-      } catch (error) {
-        console.error("Error adding banner:", error);
+          this.$router.push({ name: "banner" });
+        } catch (error) {
+          console.error("Error adding banner:", error);
+        }
       }
     },
     onFileChange(event) {

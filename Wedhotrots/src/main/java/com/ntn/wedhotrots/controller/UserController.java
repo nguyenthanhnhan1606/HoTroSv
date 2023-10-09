@@ -27,7 +27,6 @@ public class UserController {
     @Autowired
     private JwtService jwtService;
 
-
     @GetMapping("/listuser")
     @CrossOrigin
     public List<User> getAlls(@RequestParam Map<String, String> params){

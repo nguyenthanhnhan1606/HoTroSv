@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex justify-content-center align-items-center" v-if="newstts">
-      <div class="card d-flex mt-1" style="width: 95%; background-color: azure">
+      <div class="card d-flex mt-1" style="width: 95%;">
         <div class="card-body">
           <!--Table-->
           <table class="table table-hover table-forum text-center">
@@ -8,7 +8,7 @@
             <thead>
               <tr>
                 <th></th>
-                <th class="text-primary h3">Tuyển sinh đại học</th>
+                <th class="text-primary h3">Tuyển sinh đào tạo trực tuyến</th>
                 <th></th>
               </tr>
             </thead>

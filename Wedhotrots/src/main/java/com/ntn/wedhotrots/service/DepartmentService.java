@@ -14,4 +14,6 @@ public interface DepartmentService {
     boolean updateDep(int id, Map<String, String> params, MultipartFile file);
 
     boolean addDep(Map<String, String> params, MultipartFile file);
+
+    boolean RecycleBinDep(int id);
 }

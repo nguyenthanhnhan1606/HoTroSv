@@ -30,7 +30,7 @@ public class FaQuestionController {
     @CrossOrigin
     public double getPageTT(){
         double count = faQuestionService.getAlls(null).size();
-        return Math.ceil(count/2);
+        return Math.ceil(count/25);
     }
 
     @PostMapping("/faquestions")

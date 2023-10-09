@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-center text-info">Chỉnh sửa thông tin khoa</h1>
+    <h1 class="text-center text-info">Thêm khoa</h1>
     <div class="container">
       <form v-if="department" @submit.prevent="addDepartment">
         <div class="form-group">
@@ -10,6 +10,7 @@
             class="form-control"
             id="tenkhoa"
             v-model="department.tenkhoa"
+            required
           />
         </div>
         <div class="form-group">
@@ -18,6 +19,7 @@
             class="form-control"
             id="mota"
             v-model="department.mota"
+            required
           ></textarea>
         </div>
         <div class="form-group">
@@ -26,6 +28,7 @@
             class="form-control"
             id="motaCTDT"
             v-model="department.motaCTDT"
+            required
           ></textarea>
         </div>
         <div class="form-group">
@@ -35,6 +38,7 @@
             class="form-control"
             id="trungbinhdiem"
             v-model="department.trungbinhdiem"
+            required
           />
         </div>
         <div class="form-group">
@@ -44,6 +48,7 @@
             class="form-control"
             id="website"
             v-model="department.website"
+            required
           />
         </div>
         <div class="form-group">
@@ -92,25 +97,33 @@ export default {
   },
   methods: {
     async addDepartment() {
-      try {
-        const formData = new FormData();
-        formData.append("tenkhoa", this.department.tenkhoa);
-        formData.append("mota", this.department.mota);
-        formData.append("motaCTDT", this.department.motaCTDT);
-        formData.append("trungbinhdiem", this.department.trungbinhdiem);
-        formData.append("website", this.department.website);
-        formData.append("video", this.department.video);
-        const res = await authApi().post(`${endpoints["Department"]}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        if (res.data === true) {
-          alert("Thêm thành công");
-          this.$router.push({ name: "department" });
+      if (this.department.video.size > 5 * 1024 * 1024)
+        alert("Kích thước video quá lớn. Hãy tải video dưới 5mb");
+      else {
+        try {
+          const formData = new FormData();
+          formData.append("tenkhoa", this.department.tenkhoa);
+          formData.append("mota", this.department.mota);
+          formData.append("motaCTDT", this.department.motaCTDT);
+          formData.append("trungbinhdiem", this.department.trungbinhdiem);
+          formData.append("website", this.department.website);
+          formData.append("video", this.department.video);
+          const res = await authApi().post(
+            `${endpoints["Department"]}`,
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+          if (res.data === true) {
+            alert("Thêm thành công");
+            this.$router.push({ name: "department" });
+          }
+        } catch (error) {
+          console.error("Error updating banner:", error);
         }
-      } catch (error) {
-        console.error("Error updating banner:", error);
       }
     },
     onFileChange(event) {

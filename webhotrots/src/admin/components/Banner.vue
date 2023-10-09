@@ -47,64 +47,64 @@
       </button>
     </router-link>
     <div class="d-flex justify-content-center">
-          <!--Pagination -->
-          <nav class="my-2 pt-2">
-            <ul class="pagination pagination-circle pg-info mb-0">
-              <!--First-->
-              <li class="page-item clearfix d-none d-md-block">
-                <a
-                  href="#"
-                  class="page-link waves-effect"
-                  @click="setCurrentPage(1)"
-                >
-                  First
-                </a>
-              </li>
-              <!--Arrow left-->
-              <li class="page-item">
-                <a
-                  href="#"
-                  class="page-link waves-effect"
-                  aria-label="Previous"
-                  @click="setCurrentPage(currentPage - 1)"
-                >
-                  <span aria-hidden="true">«</span>
-                  <span class="sr-only"> Previous </span>
-                </a>
-              </li>
-              <!--Numbers-->
-              <li v-for="page in itemsPerPage" :key="page" class="page-item">
-                <a
-                  href="#"
-                  class="page-link waves-effect"
-                  @click="setCurrentPage(page)"
-                  >{{ page }}</a
-                >
-              </li>
-              <li class="page-item">
-                <a
-                  href="#"
-                  class="page-link waves-effect"
-                  aria-label="Next"
-                  @click="setCurrentPage(currentPage + 1)"
-                >
-                  <span aria-hidden="true">»</span>
-                  <span class="sr-only">Next</span>
-                </a>
-              </li>
-              <li class="page-item clearfix d-none d-md-block">
-                <a
-                  href="#"
-                  class="page-link waves-effect"
-                  @click="setCurrentPage(3)"
-                >
-                  Last
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <!--/Pagination -->
-        </div>
+      <!--Pagination -->
+      <nav class="my-2 pt-2">
+        <ul class="pagination pagination-circle pg-info mb-0">
+          <!--First-->
+          <li class="page-item clearfix d-none d-md-block">
+            <a
+              href="#"
+              class="page-link waves-effect"
+              @click="setCurrentPage(1)"
+            >
+              First
+            </a>
+          </li>
+          <!--Arrow left-->
+          <li class="page-item">
+            <a
+              href="#"
+              class="page-link waves-effect"
+              aria-label="Previous"
+              @click="setCurrentPage(currentPage - 1)"
+            >
+              <span aria-hidden="true">«</span>
+              <span class="sr-only"> Previous </span>
+            </a>
+          </li>
+          <!--Numbers-->
+          <li v-for="page in itemsPerPage" :key="page" class="page-item">
+            <a
+              href="#"
+              class="page-link waves-effect"
+              @click="setCurrentPage(page)"
+              >{{ page }}</a
+            >
+          </li>
+          <li class="page-item">
+            <a
+              href="#"
+              class="page-link waves-effect"
+              aria-label="Next"
+              @click="setCurrentPage(currentPage + 1)"
+            >
+              <span aria-hidden="true">»</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+          <li class="page-item clearfix d-none d-md-block">
+            <a
+              href="#"
+              class="page-link waves-effect"
+              @click="setCurrentPage(3)"
+            >
+              Last
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!--/Pagination -->
+    </div>
   </div>
 </template>
   
@@ -143,34 +143,37 @@ export default {
     },
     async deleteBanner(id) {
       try {
-        // Gọi API RecycleBin với id của banner
-        const response = await authApi().put(
-          `${endpoints["RecycleBinBanner"]}/${id}`
-        );
-        if (response.data) {
-          alert("Xóa thành công");
-          this.fetchData(1);
-          console.log("Banner deleted successfully");
-        } else {
-          console.error("Error deleting banner");
+        const result = window.confirm("Bạn có chắc muốn xóa ko?");
+        if (result) {
+          const response = await authApi().put(
+            `${endpoints["RecycleBinBanner"]}/${id}`
+          );
+          if (response.data) {
+            alert("Xóa thành công");
+            this.fetchData(1);
+            console.log("Banner deleted successfully");
+          } else {
+            console.error("Error deleting banner");
+          }
         }
+        // Gọi API RecycleBin với id của banner
       } catch (error) {
         console.error("Error deleting banner:", error);
       }
     },
     async fetchPage() {
-        try {
-          const response = await Apis.get(`${endpoints["Banner"]}/page`);
-          this.itemsPerPage = response.data;
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      },
-      setCurrentPage(page) {
-        this.currentPage = page;
-        this.searchQuery = "";
-        this.fetchData(page);
-      },
+      try {
+        const response = await Apis.get(`${endpoints["Banner"]}/page`);
+        this.itemsPerPage = response.data;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    },
+    setCurrentPage(page) {
+      this.currentPage = page;
+      this.searchQuery = "";
+      this.fetchData(page);
+    },
   },
   watch: {
     "$route.query.search": {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-center text-info">Quản lý danh sách các thông tin</h1>
+    <h1 class="text-center text-info">Quản lý khoa</h1>
 
     <table class="table table-bordered">
       <thead class="thead-dark">
@@ -57,7 +57,7 @@
               class="btn btn-danger"
               style="margin-left: 10px"
               title="Xóa"
-              @click="confirmDelete(k.id)"
+              @click="deleteDep(k.id)"
             >
               <i class="fa fa-trash"></i> Xóa
             </button>
@@ -167,18 +167,20 @@ export default {
         console.error("Error fetching data:", error);
       }
     },
-    async deleteNews(id) {
+    async deleteDep(id) {
       try {
-        // Gọi API RecycleBin với id của thông tin
-        const response = await authApi().put(
-          `${endpoints["RecycleBinNews"]}/${id}`
-        );
-        if (response.data === true) {
-          alert("Xóa thành công");
-          this.fetchData(1);
-          console.log("News deleted successfully");
-        } else {
-          console.error("Error deleting news");
+        const result = window.confirm("Bạn có chắc muốn xóa ko?");
+        if (result) {
+          const response = await authApi().put(
+            `${endpoints["RecycleBinDep"]}/${id}`
+          );
+          if (response.data === true) {
+            alert("Xóa thành công");
+            this.fetchData(1);
+            console.log("News deleted successfully");
+          } else {
+            console.error("Error deleting news");
+          }
         }
       } catch (error) {
         console.error("Error deleting news:", error);

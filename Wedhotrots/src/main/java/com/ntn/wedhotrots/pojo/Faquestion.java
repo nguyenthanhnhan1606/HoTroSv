@@ -82,7 +82,7 @@ public class Faquestion implements Serializable {
 
     @Override
     public String toString() {
-        return "com.dht.pojo.Faquestion[ id=" + id + " ]";
+        return "com.ntn.wedhotrots.pojo.Faquestion[ id=" + id + " ]";
     }
 
 }

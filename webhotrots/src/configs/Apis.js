@@ -46,10 +46,7 @@ export const endpoints = {
   ListQuestion:`/api/questionlive`,
   FaQuestion:`/api/faquestions`,
   Reply:`/api/reply`,
-
-
-
-
+  RecycleBinDep:`/api/department/recyclebin`,
 };
 
 export default axios.create({

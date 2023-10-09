@@ -15,6 +15,7 @@
             v-model="live.title"
             class="form-control"
             id="name"
+            required
           />
         </div>
         <div class="form-group">
@@ -23,6 +24,7 @@
             v-model="live.description"
             class="form-control"
             id="description"
+            required
           ></textarea>
         </div>
         <div class="d-flex">
@@ -33,6 +35,7 @@
                 v-model="live.thoigian"
                 class="form-control"
                 id="name"
+                required
               />
             </div>
             <div class="form-group">
@@ -42,6 +45,7 @@
               v-model="live.ngay"
               class="form-control"
               id="name"
+              required
             />
           </div>
           </div>
@@ -53,6 +57,7 @@
             v-model="live.path"
             class="form-control"
             id="name"
+            required
           />
         </div>
 

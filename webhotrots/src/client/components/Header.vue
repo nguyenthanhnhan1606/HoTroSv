@@ -148,7 +148,7 @@
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                 <router-link :to="{ name:'currentUser'}" class="dropdown-item">
                   <img :src="getUser.avatar" width="40" alt="Avatar" />
-                  <span className="text-info">Thông tin user</span></router-link
+                  <span className="text-info">Thông tin tài khoản</span></router-link
                 >
                 <li><hr class="dropdown-divider" /></li>
                 <router-link

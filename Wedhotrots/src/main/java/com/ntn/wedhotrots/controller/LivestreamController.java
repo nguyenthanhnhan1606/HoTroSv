@@ -24,7 +24,7 @@ public class LivestreamController {
     @CrossOrigin
     public double page(){
         double count = liveSer.getAlls(null).size();
-        return Math.ceil(count/2);
+        return Math.ceil(count/3);
     }
 
     @GetMapping("/live/{id}")

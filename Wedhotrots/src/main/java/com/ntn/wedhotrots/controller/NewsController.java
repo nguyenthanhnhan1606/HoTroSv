@@ -27,7 +27,7 @@ public class NewsController {
     @CrossOrigin
     public double page(@RequestParam Map<String, String> params){
         double count = newsSer.getAlls(null).size();
-        return Math.ceil(count/2);
+        return Math.ceil(count/10);
     }
 
     @GetMapping("/news/{id}")
@@ -48,7 +48,7 @@ public class NewsController {
     @CrossOrigin
     public double getPageDH(){
         double count = newsSer.getNewsDH(null).size();
-        return Math.ceil(count/2);
+        return Math.ceil(count/10);
     }
 
     //SAU ĐẠI HỌC
@@ -62,7 +62,7 @@ public class NewsController {
     @CrossOrigin
     public double getPageSDH(){
         double count = newsSer.getNewsSDH(null).size();
-        return Math.ceil(count/2);
+        return Math.ceil(count/10);
     }
 
     //TRỰC TUYẾN
@@ -76,7 +76,7 @@ public class NewsController {
     @CrossOrigin
     public double getPageTT(){
         double count = newsSer.getNewsTT(null).size();
-        return Math.ceil(count/2);
+        return Math.ceil(count/10);
     }
 
     //TỪ XA
@@ -90,7 +90,7 @@ public class NewsController {
     @CrossOrigin
     public double getPageTX(){
         double count = newsSer.getNewsTX(null).size();
-        return Math.ceil(count/2);
+        return Math.ceil(count/10);
     }
 
 

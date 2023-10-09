@@ -116,7 +116,7 @@ public class Banner implements Serializable {
 
     @Override
     public String toString() {
-        return "com.dht.pojo.Banner[ id=" + id + " ]";
+        return "com.ntn.wedhotrots.pojo.Banner[ id=" + id + " ]";
     }
 
 }

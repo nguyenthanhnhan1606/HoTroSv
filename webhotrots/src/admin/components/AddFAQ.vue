@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-center text-info">Chỉnh sửa thông tin khoa</h1>
+    <h1 class="text-center text-info">Thêm câu hỏi thường gặp</h1>
     <div class="container">
       <form v-if="faquestion" @submit.prevent="addFAQ">
         <div class="form-group">
@@ -9,6 +9,7 @@
             class="form-control"
             id="mota"
             v-model="faquestion.question"
+            required
           ></textarea>
         </div>
         <div class="form-group">
@@ -17,6 +18,7 @@
             class="form-control"
             id="motaCTDT"
             v-model="faquestion.answers"
+            required
           ></textarea>
         </div>
 

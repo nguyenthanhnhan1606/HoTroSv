@@ -44,7 +44,7 @@
           </div>
         </div>
         <div v-if="questions===null||questions.length ===0" class="text-center bg-info h2 pb-2" style="margin: 0">
-          Không có tin nào!!
+          Không có câu hỏi nào!!
         </div>
       </div>
       <!-- Interactions -->

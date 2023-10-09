@@ -1,6 +1,9 @@
 <template>
   <div>
     <h1 class="text-center text-info">Thêm thông tin tuyển sinh</h1>
+    <div class="d-flex justify-content-center overlay" v-if="myFlag">
+      <div class="spinner-border" role="status"></div>
+    </div>
     <div class="container">
       <form
         @submit.prevent="addNews"
@@ -81,6 +84,7 @@ export default {
         type: "",
         image: null,
       },
+      myFlag: false,
     };
   },
   methods: {
@@ -92,8 +96,15 @@ export default {
         this.news.image === null
       )
         alert("Hãy nhập đủ thông tin!!");
+      else if (
+        this.news.image.type !== "image/jpeg" &&
+        this.news.image.type !== "image/jpg" &&
+        this.news.image.type !== "image/png"
+      )
+        alert("Bạn hãy chọn những file có định dạng *.jpg, *.jepg, *.png");
       else {
         try {
+          this.showSpinner(true);
           const formData = new FormData();
           formData.append("title", this.news.title);
           formData.append("content", this.news.content);
@@ -106,9 +117,11 @@ export default {
             },
           });
           if (res.data === true) {
+            this.showSpinner(false);
             alert("Thêm thành công");
             this.$router.push({ name: "news" });
-          } else alert("Thêm thất bại");
+          } else {alert("Thêm thất bại");
+          this.showSpinner(false);}
         } catch (error) {
           console.error("Error updating banner:", error);
         }
@@ -118,6 +131,25 @@ export default {
       const file = event.target.files[0];
       this.news.image = file;
     },
+    showSpinner(flag) {
+      this.myFlag = flag;
+    },
   },
 };
 </script>
+<style>
+/* CSS cho overlay */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Màu nền đậy mờ */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* Đảm bảo spinner luôn ở trên cùng */
+}
+</style>

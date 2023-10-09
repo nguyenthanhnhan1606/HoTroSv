@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-content-center align-items-center" v-if="newsdhs">
-    <div class="card d-flex mt-1" style="width: 95%; background-color: azure">
+    <div class="card d-flex mt-1" style="width: 95%;">
       <div class="card-body">
         <!--Table-->
         <table class="table table-hover table-forum text-center">

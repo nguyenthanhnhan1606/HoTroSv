@@ -118,7 +118,7 @@ public class Comments implements Serializable {
 
     @Override
     public String toString() {
-        return "com.dht.pojo.Comments[ id=" + id + " ]";
+        return "com.ntn.wedhotrots.pojo.Comments[ id=" + id + " ]";
     }
 
 }

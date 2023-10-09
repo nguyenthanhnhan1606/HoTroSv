@@ -158,16 +158,19 @@ export default {
     },
     async deleteUser(id) {
       try {
-        // Gọi API RecycleBin với id của u
-        const response = await authApi().put(
-          `${endpoints["RecycleBinUser"]}/${id}`
-        );
-        if (response.data) {
-          alert("Xóa thành công");
-          this.fetchData(1);
-          console.log("user deleted successfully");
-        } else {
-          console.error("Error deleting user");
+        const result = window.confirm("Bạn có chắc muốn xóa ko?");
+        if (result) {
+          // Gọi API RecycleBin với id của u
+          const response = await authApi().put(
+            `${endpoints["RecycleBinUser"]}/${id}`
+          );
+          if (response.data) {
+            alert("Xóa thành công");
+            this.fetchData(1);
+            console.log("user deleted successfully");
+          } else {
+            console.error("Error deleting user");
+          }
         }
       } catch (error) {
         console.error("Error deleting user:", error);

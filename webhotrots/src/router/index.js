@@ -101,6 +101,7 @@ const routes = [
         name: 'faquestion', // Đây là trang chính, có thể sử dụng component Home.vue
         component: FaQuestion
       },
+    
     ]
   },
   {

@@ -15,6 +15,7 @@
             v-model="news.title"
             class="form-control"
             id="name"
+            required
           />
         </div>
         <div class="form-group">
@@ -23,6 +24,7 @@
             v-model="news.content"
             class="form-control"
             id="description"
+            required
           ></textarea>
         </div>
         <div class="form-group">
@@ -43,9 +45,13 @@
             class="form-control custom-select"
           >
             <option value="Tuyển sinh đại học">Tuyển sinh đại học</option>
-            <option value="Tuyển sinh sau đại học">Tuyển sinh sau đại học</option>
+            <option value="Tuyển sinh sau đại học">
+              Tuyển sinh sau đại học
+            </option>
             <option value="Tuyển sinh trực tuyến">Tuyển sinh trực tuyến</option>
-            <option value="Tuyển sinh đào tạo từ xa">Tuyển sinh đào tạo từ xa</option>
+            <option value="Tuyển sinh đào tạo từ xa">
+              Tuyển sinh đào tạo từ xa
+            </option>
           </select>
         </div>
 
@@ -80,7 +86,7 @@ export default {
   data() {
     return {
       news: null,
-      image: null
+      image: null,
     };
   },
   async created() {
@@ -109,13 +115,16 @@ export default {
         formData.append("type", this.news.type);
         formData.append("file", this.news.image);
 
-        const res =await authApi().put(`${endpoints['UpdateNews']}/${this.news.id}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          },
-        });
-        if(res.status ===200)
-          alert("update thành công")
+        const res = await authApi().put(
+          `${endpoints["UpdateNews"]}/${this.news.id}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        if (res.status === 200) alert("update thành công");
         this.$router.push({ name: "news" });
       } catch (error) {
         console.error("Error updating banner:", error);
@@ -125,7 +134,7 @@ export default {
       const file = event.target.files[0];
 
       this.news.image = file;
-    }
+    },
   },
 };
 </script>

@@ -18,4 +18,5 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     Optional<User> getUserByUsername(String username);
     @Query("SELECT u FROM User u Where u.active=1 AND u.name LIKE %:search% AND u.userRole <> 'ROLE_ADMIN' ")
     List<User> getAllsUser(Pageable pageable, String search);
+
 }

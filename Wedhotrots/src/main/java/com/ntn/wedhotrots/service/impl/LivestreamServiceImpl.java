@@ -39,7 +39,7 @@ public class LivestreamServiceImpl implements LivestreamService {
             if (pageStr != null && !pageStr.isEmpty()) {
                 int page = Integer.parseInt(pageStr);
                 page -=1;
-                pageable = PageRequest.of(page, 2, Sort.by("id").descending());
+                pageable = PageRequest.of(page, 3, Sort.by("id").descending());
             }
             search = params.get("search");
         }

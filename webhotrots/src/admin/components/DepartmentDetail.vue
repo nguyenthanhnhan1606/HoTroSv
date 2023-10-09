@@ -10,6 +10,7 @@
             class="form-control"
             id="tenkhoa"
             v-model="department.tenkhoa"
+            required
           />
         </div>
         <div class="form-group">
@@ -18,6 +19,7 @@
             class="form-control"
             id="mota"
             v-model="department.mota"
+            required
           ></textarea>
         </div>
         <div class="form-group">
@@ -26,6 +28,7 @@
             class="form-control"
             id="motaCTDT"
             v-model="department.motaCTDT"
+            required
           ></textarea>
         </div>
         <div class="form-group">
@@ -35,6 +38,7 @@
             class="form-control"
             id="trungbinhdiem"
             v-model="department.trungbinhdiem"
+            required
           />
         </div>
         <div class="form-group">
@@ -44,6 +48,7 @@
             class="form-control"
             id="website"
             v-model="department.website"
+            required
           />
         </div>
         <div class="form-group">

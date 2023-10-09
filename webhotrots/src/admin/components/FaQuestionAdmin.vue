@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-center text-info">Thêm câu hỏi thường gặp</h1>
+    <h1 class="text-center text-info">Danh sách câu hỏi thường gặp</h1>
 
     <table class="table table-bordered">
       <thead class="thead-dark">

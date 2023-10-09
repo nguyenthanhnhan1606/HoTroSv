@@ -8,7 +8,7 @@
       >
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-2 text-info">{{ live.title }}</h5>
-          <div v-if="getUser === null || getUser.userRole !== 'ROLE_ADVISER'">
+          <div v-if="getUser === null || getUser.userRole !== 'ROLE_ADVISER' && getUser.userRole !=='ROLE_ADMIN'">
             <div v-if="isWithinTimeframe(live)">
               <small
                 class="btn btn-info"
@@ -192,7 +192,7 @@ export default {
     },
     async submitQuestion() {
       try {
-        if (this.errorMessage === "")
+        if (this.question.content === "")
           this.errorMessage = "Bạn chưa nhập nội dung cho câu hỏi!!";
         else {
           const res = await authApi().post(
@@ -202,16 +202,16 @@ export default {
           if (res.data === true) {
             alert("Bạn đã đặt câu hỏi thành công!!");
             this.isQuestionFormVisible = false;
-            this.question.content = "";
             this.errorMessage = "";
             const formData = new FormData();
             formData.append("to", this.getUser.email);
             formData.append(
               "subject",
-              "Bạn đã gửi câu hỏi cho livestream " + this.myTitle
+              "Bạn đã gửi câu hỏi cho livestream " + this.myTitle,
             );
-            formData.append("body", this.question.content);
+            formData.append("body", "Nội dung câu hỏi của bạn là: "+ this.question.content);
             await authApi().post(endpoints["SendMail"], formData);
+            this.question.content = "";
           } else alert("Bạn đặt câu hỏi thất bại!!");
         }
       } catch (error) {

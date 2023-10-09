@@ -107,4 +107,16 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
         return false;
     }
+
+    @Override
+    public boolean RecycleBinDep(int id) {
+        Optional<Departments> d = departmentRepo.findById(id);
+        if(d.isPresent()){
+            Departments d1 = d.get();
+            d1.setActive((byte) 0);
+            departmentRepo.save(d1);
+            return true;
+        }
+        return false;
+    }
 }

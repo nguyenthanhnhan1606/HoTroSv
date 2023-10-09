@@ -64,16 +64,14 @@
               <a
                 class="btn btn-primary w-100 mt-1"
                 style="background-color: #3b5998"
-                href="#!"
-                role="button"
+                @click="loginWithFacebook"
               >
                 <i class="fab fa-facebook-f me-2"></i>Đăng nhập bằng Facebook
               </a>
               <a
                 class="btn btn-primary w-100 mt-2"
                 style="background-color: #dd4b39"
-                href="#!"
-                role="button"
+                @click="loginWithGoogle"
               >
                 <i class="fab fa-google me-2"></i>Đăng nhập bằng Google</a
               >
@@ -94,8 +92,10 @@
   <script>
 import Apis, { authApi } from "@/configs/Apis.js";
 import { endpoints } from "@/configs/Apis.js";
+import { signInWithPopup } from "firebase/auth";
 import cookie from "vue-cookies";
 import { mapState } from "vuex";
+import { auth, provider, providerGG } from "@/configs/Firebase.js";
 
 export default {
   name: "Login",
@@ -109,6 +109,11 @@ export default {
         password: "",
       },
       errorMessage: "",
+      userTem:{
+        avatar:null,
+        name:"",
+        email:"",
+      }
     };
   },
   methods: {
@@ -119,8 +124,7 @@ export default {
           password: this.user.password,
         });
         if (res.data === "error") {
-          this.errorMessage =
-            "Tài khoản hoặc mật khẩu của bạn không đúng!!";
+          this.errorMessage = "Tài khoản hoặc mật khẩu của bạn không đúng!!";
         } else {
           this.errorMessage = "";
           cookie.set("token", res.data);
@@ -136,12 +140,34 @@ export default {
         throw error;
       }
     },
+    async loginWithFacebook() {
+      try {
+        const result = await signInWithPopup(auth, provider);
+
+        console.log("Đăng nhập thành công:", result.user);
+      } catch (error) {
+        console.error("Lỗi đăng nhập Facebook:", error);
+      }
+    },
+    async loginWithGoogle() {
+      try {
+        const result = await signInWithPopup(auth, providerGG);
+        this.userTem.avatar=result.user.photoURL;
+        this.userTem.name=result.user.displayName;
+        this.userTem.email=result.user.email;
+        await this.$store.dispatch("login", this.userTem);
+        console.log("Đăng nhập thành công:", result.user);
+        this.$router.push({ name: "home" });
+
+      } catch (error) {
+        console.error("Lỗi đăng nhập Facebook:", error);
+      }
+    },
   },
   watch: {
-    "errorMessage": function (newErrorMessage, oldErrorMessage) {
+    errorMessage: function (newErrorMessage, oldErrorMessage) {
       console.log(`Giá trị mới của user.errorMessage: ${newErrorMessage}`);
       console.log(`Giá trị cũ của user.errorMessage: ${oldErrorMessage}`);
-
     },
   },
 };

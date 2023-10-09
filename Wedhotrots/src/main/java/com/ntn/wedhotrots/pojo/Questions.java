@@ -27,11 +27,8 @@ public class Questions implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+7")
     private Date ngaytao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idQuestion")
-    private Set<Answers> answersSet;
     @JoinColumn(name = "id_live", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    @JsonIgnore
     private Livestreams idLive;
     @JoinColumn(name = "id_user", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -74,14 +71,6 @@ public class Questions implements Serializable {
         this.ngaytao = ngaytao;
     }
 
-    @JsonIgnore
-    public Set<Answers> getAnswersSet() {
-        return answersSet;
-    }
-
-    public void setAnswersSet(Set<Answers> answersSet) {
-        this.answersSet = answersSet;
-    }
 
     public Livestreams getIdLive() {
         return idLive;
@@ -121,7 +110,7 @@ public class Questions implements Serializable {
 
     @Override
     public String toString() {
-        return "com.dht.pojo.Questions[ id=" + id + " ]";
+        return "com.ntn.wedhotrots.pojo.Questions[ id=" + id + " ]";
     }
 
 }

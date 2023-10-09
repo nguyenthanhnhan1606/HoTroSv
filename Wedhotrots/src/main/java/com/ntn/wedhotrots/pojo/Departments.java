@@ -135,7 +135,7 @@ public class Departments implements Serializable {
 
     @Override
     public String toString() {
-        return "com.dht.pojo.Departments[ id=" + id + " ]";
+        return "com.ntn.wedhotrots.pojo.Departments[ id=" + id + " ]";
     }
 
 }
