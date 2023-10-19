@@ -8,7 +8,7 @@
 6. Hoàn thành
 ## Hướng dẫn cài đặt hệ thống HoTroTS Back-end
 1. Sử dụng IntelliJ IDE hoặc Eclipse có cài đặt JDK để chạy máy ảo java.
-2. Mở project **Wedhotrots** và build. có thể sử dụng giao diện hoặc môi trường dòng lệnh terminal như sau:
+2. Mở project **BE_SPRING_BOOT** và build. có thể sử dụng giao diện hoặc môi trường dòng lệnh terminal như sau:
 
     mvn clean install
 
@@ -20,7 +20,7 @@
 6. Hoàn tất
 ## Hướng dẫn cài đặt hệ thống HoTroTS Front-end
 1. Sử dụng Visual Studio Code
-2. Mở project **wedhotrots** 
+2. Mở project **FE_VUEJS** 
 3. Mở terminal trong Visual Studio Code và gõ lệnh **npm install**
 4. Gõ lệnh **npm run serve**
 5. Hoàn tất
