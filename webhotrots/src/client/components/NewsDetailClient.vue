@@ -56,13 +56,14 @@
               {{ errorMessage }}
             </div>
             <div class="form-outline w-100 mt-2">
-              <textarea
+              <input
+                type="text"
                 class="form-control"
                 id="textAreaExample"
+                placeholder="Nhập bình luận..."
                 v-model="comment.content"
-                rows="4"
                 style="background: #fff"
-              ></textarea>
+              />
             </div>
             <div class="float-end mt-2 pt-1">
               <button type="submit" class="btn btn-primary btn-sm">Đăng</button>
@@ -97,7 +98,7 @@
                           <div
                             class="d-flex justify-content-between align-items-center"
                           >
-                            <p class="mb-1">
+                            <p>
                               <strong
                                 >{{ c.idUser.name }}
                                 <span class="small text-success">
@@ -113,14 +114,26 @@
                                 >
                               </strong>
                             </p>
-                            <p class="btn btn-info" @click="toggleReplyForm(c)">
-                              <i class="fas fa-reply fa-xs"></i
-                              ><span class="small"> Phản hồi</span>
-                            </p>
                           </div>
-                          <p class="small mb-0">
+                          <p class="small mb-2" style="font-size: 20px">
                             {{ c.content }}
                           </p>
+                          <div
+                            class="small btn d-flex justify-content-start"
+                            style="margin-left: -10px"
+                          >
+                            <span class="d-flex align-items-center me-3">
+                              <i class="far fa-thumbs-up me-2"></i>
+                              <p class="mb-0">Like</p>
+                            </span>
+                            <span
+                              class="d-flex btn align-items-center me-3"
+                              @click="toggleReplyForm(c)"
+                            >
+                              <i class="far fa-comment-dots me-2"></i>
+                              <p class="mb-0">Phản hồi</p>
+                            </span>
+                          </div>
                           <div class="mt-2" v-if="c.show">
                             <div v-if="getUser">
                               <img
@@ -167,7 +180,7 @@
                           <div class="flex-grow-1 flex-shrink-1">
                             <div>
                               <div
-                                class="d-flex justify-content-between align-items-center"
+                                class="justify-content-between align-items-center"
                               >
                                 <p class="mb-1">
                                   <strong
@@ -185,17 +198,26 @@
                                     >
                                   </strong>
                                 </p>
-                                <p
-                                  class="btn btn-info"
-                                  @click="toggleReplyFormRep(r)"
-                                >
-                                  <i class="fas fa-reply fa-xs"></i
-                                  ><span class="small"> Phản hồi</span>
+                                <p class="small mb-0" style="font-size: 20px">
+                                  {{ r.content }}
                                 </p>
+                                <div
+                                  class="small btn d-flex justify-content-start"
+                                  style="margin-left: -10px"
+                                >
+                                  <span class="d-flex align-items-center me-3">
+                                    <i class="far fa-thumbs-up me-2"></i>
+                                    <p class="mb-0">Like</p>
+                                  </span>
+                                  <span
+                                    class="d-flex btn align-items-center me-3"
+                                    @click="toggleReplyFormRep(r)"
+                                  >
+                                    <i class="far fa-comment-dots me-2"></i>
+                                    <p class="mb-0">Phản hồi</p>
+                                  </span>
+                                </div>
                               </div>
-                              <h6 class="small mb-0">
-                                {{ r.content }}
-                              </h6>
                               <div class="mt-2" v-if="r.showDep">
                                 <div v-if="getUser">
                                   <img
@@ -242,6 +264,8 @@
 <script>
 import Apis, { authApi, endpoints } from "@/configs/Apis";
 import { mapGetters } from "vuex";
+import moment from "moment-timezone";
+
 export default {
   name: "NewsDetailClient",
   data() {
@@ -273,11 +297,13 @@ export default {
       this.comments = await this.loadComment(this.id);
       this.comments.forEach((c) => {
         c.show = false;
+        c.ngaybinhluan = moment(c.ngaybinhluan).tz("Asia/Ho_Chi_Minh").format("HH:mm");
         c.replySet.forEach((r) => {
-          r.showRep = false; 
+          r.showRep = false;
+          r.ngayreply = moment(r.ngayreply).tz("Asia/Ho_Chi_Minh").format("HH:mm");
         });
         c.replySet.sort((a, b) => {
-          return b.id - a.id; 
+          return b.id - a.id;
         });
       });
       console.log(this.comments);
@@ -331,8 +357,7 @@ export default {
           this.$router.push("/login");
         }
       } else {
-        if (this.reply.content === "")
-          alert("Bạn chưa nhập nội dung!!");
+        if (this.reply.content === "") alert("Bạn chưa nhập nội dung!!");
         else {
           this.reply.idAdvisor = this.getUser;
           this.reply.idComment = idC;
@@ -361,3 +386,9 @@ export default {
   // }
 };
 </script>
+<style scoped>
+ div.small.btn.d-flex.justify-content-start:focus{
+  border:none;
+
+}
+</style>

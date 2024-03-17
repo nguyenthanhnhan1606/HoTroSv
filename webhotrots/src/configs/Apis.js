@@ -2,6 +2,7 @@ import axios from 'axios';
 import cookie from 'vue-cookies';
 const SERVER = 'http://localhost:8085';
 
+
 export const authApi = () => {
     return axios.create({
         baseURL: SERVER,
@@ -47,6 +48,8 @@ export const endpoints = {
   FaQuestion:`/api/faquestions`,
   Reply:`/api/reply`,
   RecycleBinDep:`/api/department/recyclebin`,
+  ListAdviser:`/api/list-adviser`,
+  ListUserChat:`/api/list-user-chat`
 };
 
 export default axios.create({

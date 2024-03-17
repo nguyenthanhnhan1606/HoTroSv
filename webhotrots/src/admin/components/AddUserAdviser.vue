@@ -140,8 +140,7 @@ export default {
     async AddUserAdviser() {
       try {
         if (
-          this.user.ho === "" ||
-          this.user.ten === "" ||
+          this.user.name === "" ||
           this.user.email === "" ||
           this.user.username === "" ||
           this.user.password === "" ||
@@ -152,7 +151,7 @@ export default {
         } else {
           this.showSpinner(true);
           const formData = new FormData();
-          formData.append("name", this.user.ho + " " + this.user.ten);
+          formData.append("name", this.user.name);
           formData.append("username", this.user.username);
           formData.append("password", this.user.password);
           formData.append("email", this.user.email);

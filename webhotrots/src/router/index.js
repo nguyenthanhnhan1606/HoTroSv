@@ -24,7 +24,7 @@ import LiveDetail from '../admin/components/LiveDetail.vue'
 import AddLive from '../admin/components/AddLive.vue'
 import LiveClient from '../client/components/LiveCl.vue'
 import unauthorized from '@/components/Unauthorized.vue'
-import { isAdmin, checkLogin } from '@/configs/Unauthorized'
+import { isAdmin,isLogin, checkLogin } from '@/configs/Unauthorized'
 import CurrentUser from '../client/components/CurrentUser.vue'
 import ListUser from '../admin/components/ListUser.vue'
 import UserDetail from '../admin/components/UserDetail.vue'
@@ -33,6 +33,7 @@ import ListQuestionLive from '../client/components/ListQuestionLive.vue'
 import FaQuestionAdmin from '../admin/components/FaQuestionAdmin.vue'
 import AddFAQ from '../admin/components/AddFAQ.vue'
 import FaQuestionDetail from '../admin/components/FaQuestionDetail.vue'
+import Chat  from '../client/components/Chat.vue'
 
 const routes = [
   {
@@ -101,7 +102,12 @@ const routes = [
         name: 'faquestion', // Đây là trang chính, có thể sử dụng component Home.vue
         component: FaQuestion
       },
-    
+      {
+        path: 'chat-advisor',
+        name: "chatAdvisor",
+        component: Chat,
+        beforeEnter:isLogin
+      },
     ]
   },
   {

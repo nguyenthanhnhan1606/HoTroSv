@@ -82,33 +82,25 @@ export default {
       }
     },
     async updateBanner() {
-      if (
-        this.banner.image.type !== "image/jpeg" &&
-        this.banner.image.type !== "image/jpg" &&
-        this.banner.image.type !== "image/png"
-      )
-        alert("Bạn hãy chọn những file có định dạng *.jpg, *.jepg, *.png");
-      else {
-        try {
-          const formData = new FormData();
-          formData.append("name", this.banner.name);
-          formData.append("description", this.banner.description);
-          formData.append("file", this.banner.image);
+      try {
+        const formData = new FormData();
+        formData.append("name", this.banner.name);
+        formData.append("description", this.banner.description);
+        formData.append("file", this.banner.image);
 
-          const res = await authApi().put(
-            `${endpoints["UpdateBanner"]}/${this.banner.id}`,
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          );
-          if (res.status === 200) alert("update thành công");
-          this.$router.push({ name: "banner" });
-        } catch (error) {
-          console.error("Error updating banner:", error);
-        }
+        const res = await authApi().put(
+          `${endpoints["UpdateBanner"]}/${this.banner.id}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        if (res.status === 200) alert("update thành công");
+        this.$router.push({ name: "banner" });
+      } catch (error) {
+        console.error("Error updating banner:", error);
       }
     },
     onFileChange(event) {

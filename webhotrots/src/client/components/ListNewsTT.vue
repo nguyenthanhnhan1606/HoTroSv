@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-content-center align-items-center" v-if="newstts">
+    <div class="d-flex justify-content-center"  style="min-height: 600px;" v-if="newstts">
       <div class="card d-flex mt-1" style="width: 95%;">
         <div class="card-body">
           <!--Table-->

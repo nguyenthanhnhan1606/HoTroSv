@@ -19,3 +19,10 @@ export function checkLogin(to, from, next) {
             next({ name: 'login' });
         }
 }
+
+export function isLogin(to, from, next) {
+    if (myStore.getters.isAuth === false)
+        next({ name: 'login' });   
+    else
+        next();
+}

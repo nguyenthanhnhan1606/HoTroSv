@@ -79,6 +79,9 @@
           <li class="nav-item">
             <router-link :to="{name:'faquestion'}" class="nav-link active">Câu hỏi thường gặp</router-link>
           </li>
+          <li class="nav-item">
+            <router-link :to="{name:'chatAdvisor'}" class="nav-link active">Chat</router-link>
+          </li>
           <li class="nav-item" v-if="getUser?getUser.userRole==='ROLE_ADMIN':false">
             <router-link :to="{name:'Homeadmin'}" class="nav-link active">Trang quản trị</router-link>
           </li>
@@ -147,7 +150,7 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                 <router-link :to="{ name:'currentUser'}" class="dropdown-item">
-                  <img :src="getUser.avatar" width="40" alt="Avatar" />
+                  <img :src="getUser.avatar" width="18" alt="Avatar" />
                   <span className="text-info">Thông tin tài khoản</span></router-link
                 >
                 <li><hr class="dropdown-divider" /></li>

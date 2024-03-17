@@ -39,6 +39,18 @@ public class UserController {
         return Math.ceil(count/2);
     }
 
+    @GetMapping("/list-adviser")
+    @CrossOrigin
+    public List<User> getListAdviser(){
+        return userSer.getListAdviser();
+    }
+
+    @PostMapping("/list-user-chat")
+    @CrossOrigin
+    public List<User> getListUserChat(@RequestBody List<Integer> ids){
+        return userSer.getListUserChat(ids);
+    }
+
     @GetMapping("/listuser/{id}")
     @CrossOrigin
     public User getUserByName(@PathVariable int id) {
@@ -66,7 +78,7 @@ public class UserController {
         final String token = jwtService.generateToken(userDetails.getUsername());
         return new ResponseEntity<>(token, HttpStatus.OK);
 
-    }
+    }   
 
     @PostMapping("/register")
     @CrossOrigin

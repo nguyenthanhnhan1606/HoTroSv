@@ -13,6 +13,8 @@
     "core-js": "^3.8.3",
     "firebase": "^10.4.0",
     "moment-timezone": "^0.5.43",
+    "sass": "^1.71.1",
+    "sass-loader": "^14.1.1",
     "vue": "^3.3.4",
     "vue-cookies": "^1.8.3",
     "vue-router": "^4.0.3",

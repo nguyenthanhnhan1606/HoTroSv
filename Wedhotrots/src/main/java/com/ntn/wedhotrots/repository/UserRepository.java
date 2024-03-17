@@ -19,4 +19,10 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Query("SELECT u FROM User u Where u.active=1 AND u.name LIKE %:search% AND u.userRole <> 'ROLE_ADMIN' ")
     List<User> getAllsUser(Pageable pageable, String search);
 
+    @Query("SELECT u FROM User u WHERE u.active=1 and u.userRole='ROLE_ADVISER'")
+    List<User> getListAdviser();
+
+    @Query("SELECT u FROM User u WHERE u.id in :ids")
+    List<User> getListUserChat( List<Integer> ids);
+
 }

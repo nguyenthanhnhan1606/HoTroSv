@@ -63,6 +63,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getListAdviser() {
+        return userRepo.getListAdviser();
+    }
+
+    @Override
+    public List<User> getListUserChat(List<Integer> ids) {
+        return userRepo.getListUserChat(ids);
+    }
+
+    @Override
     public boolean checkUsername(String username) {
         Optional<User> u = userRepo.getUserByUsername(username);
         if(u.isPresent())
