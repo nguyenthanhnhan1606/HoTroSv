@@ -1,0 +1,12 @@
+	-- Hướng dẫn sử dụng docker -- 
+docker build -t fe-vuejs .
+-- Lệnh run docker
+docker run -it -p 8080:8080 --rm --name fe-httuyensinh fe-vuejs
+-- Lệnh start contaier
+docker start id_conatiner
+-- Lệnh restart container
+docker restart id_conatiner
+-- Lệnh stop container
+docker stop id_conatiner
+-- Lệnh xóa container
+docker rm id_container
