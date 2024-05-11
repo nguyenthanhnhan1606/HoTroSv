@@ -13,8 +13,8 @@
         <div class="row">
           <!-- Grid column -->
           <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-            <h6 class="text-uppercase mb-4 font-weight-bold">DO AN NGANH</h6>
-            <p>Đây là đồ án ngành</p>
+            <h6 class="text-uppercase mb-4 font-weight-bold">KHOA LUAN TOT NGHIEP</h6>
+            <p>Đây là khóa luận tốt nghiệp</p>
           </div>
           <!-- Grid column -->
 
