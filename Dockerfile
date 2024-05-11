@@ -2,7 +2,7 @@
 FROM maven:3.9.4-openjdk-19 AS build
 WORKDIR /app
 COPY . .
-RUN mvn clean
+RUN mvn clean package -DskipTests
 
 # Stage 2: Production stage
 FROM openjdk:19
