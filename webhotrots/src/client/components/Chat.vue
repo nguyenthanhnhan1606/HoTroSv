@@ -116,7 +116,7 @@ export default {
         return !this.message.trim(); 
       }
     },
-    mounted(){
+    mounted(){    
        this.getListIdUserChat();
     },
     methods: {
@@ -135,7 +135,7 @@ export default {
       },
       sendMessage(){
         if(this.isChatbot == true){
-          this.groupChat=String(this.getUser.id)+"+"+String(this.adviser.id);
+          this.groupChat=String(this.getUser.id)+"+0";
           push(ref(database, this.groupChat),{
             id: this.getUser.id,
             refId: 12,
@@ -157,7 +157,7 @@ export default {
             } else {
               console.log('sendMessageToDialogflow() trả về null.');
             }
-          }, 2000);
+          }, 3000);
           this.message ="";
           this.$refs['scrollableNew'].scrollIntoView({ behavior: 'smooth' });
           return;
@@ -215,6 +215,8 @@ export default {
         if(this.adviser != null && this.getUser != null){
           if(this.getUser.userRole === 'ROLE_USER'){
             this.groupChat=String(this.getUser.id)+"+"+String(this.adviser.id)
+          }else if(this.isChatbot == true){
+            this.groupChat=String(this.getUser.id)+"+0"
           }else{
             this.groupChat=String(this.adviser.id)+"+"+String(this.getUser.id)
           }
