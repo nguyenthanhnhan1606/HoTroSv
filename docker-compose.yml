@@ -2,12 +2,12 @@ version: '3'
 
 services:
   be-spring-boot:
-    image: nhannt/be-spring-boot:latest
+    image: nhannt166/be-spring-boot:latest
     ports:
       - "8085:8085"
     # Add other configuration options here if needed
   
   fe-vuejs:
-    image: nhannt/fe-vuejs:latest
+    image: nhannt166/fe-vuejs:latest
     ports:
       - "8080:8080"
